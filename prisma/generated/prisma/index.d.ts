@@ -23,6 +23,11 @@ export type Users = $Result.DefaultSelection<Prisma.$UsersPayload>
  * 
  */
 export type Messages = $Result.DefaultSelection<Prisma.$MessagesPayload>
+/**
+ * Model Group
+ * 
+ */
+export type Group = $Result.DefaultSelection<Prisma.$GroupPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get messages(): Prisma.MessagesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.group`: Exposes CRUD operations for the **Group** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Groups
+    * const groups = await prisma.group.findMany()
+    * ```
+    */
+  get group(): Prisma.GroupDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Users: 'Users',
-    Messages: 'Messages'
+    Messages: 'Messages',
+    Group: 'Group'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "messages"
+      modelProps: "users" | "messages" | "group"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +796,80 @@ export namespace Prisma {
           }
         }
       }
+      Group: {
+        payload: Prisma.$GroupPayload<ExtArgs>
+        fields: Prisma.GroupFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>
+          }
+          findFirst: {
+            args: Prisma.GroupFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>
+          }
+          findMany: {
+            args: Prisma.GroupFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>[]
+          }
+          create: {
+            args: Prisma.GroupCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>
+          }
+          createMany: {
+            args: Prisma.GroupCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>[]
+          }
+          delete: {
+            args: Prisma.GroupDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>
+          }
+          update: {
+            args: Prisma.GroupUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroupUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>[]
+          }
+          upsert: {
+            args: Prisma.GroupUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupPayload>
+          }
+          aggregate: {
+            args: Prisma.GroupAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroup>
+          }
+          groupBy: {
+            args: Prisma.GroupGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +956,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     users?: UsersOmit
     messages?: MessagesOmit
+    group?: GroupOmit
   }
 
   /* Types for Logging */
@@ -962,11 +1053,13 @@ export namespace Prisma {
   export type UsersCountOutputType = {
     senderMessages: number
     receiverMessages: number
+    groups: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     senderMessages?: boolean | UsersCountOutputTypeCountSenderMessagesArgs
     receiverMessages?: boolean | UsersCountOutputTypeCountReceiverMessagesArgs
+    groups?: boolean | UsersCountOutputTypeCountGroupsArgs
   }
 
   // Custom InputTypes
@@ -991,6 +1084,53 @@ export namespace Prisma {
    * UsersCountOutputType without action
    */
   export type UsersCountOutputTypeCountReceiverMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessagesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupWhereInput
+  }
+
+
+  /**
+   * Count Type GroupCountOutputType
+   */
+
+  export type GroupCountOutputType = {
+    users: number
+    Messages: number
+  }
+
+  export type GroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | GroupCountOutputTypeCountUsersArgs
+    Messages?: boolean | GroupCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupCountOutputType
+     */
+    select?: GroupCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UsersWhereInput
+  }
+
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessagesWhereInput
   }
 
@@ -1157,6 +1297,7 @@ export namespace Prisma {
     hash?: boolean
     senderMessages?: boolean | Users$senderMessagesArgs<ExtArgs>
     receiverMessages?: boolean | Users$receiverMessagesArgs<ExtArgs>
+    groups?: boolean | Users$groupsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1185,6 +1326,7 @@ export namespace Prisma {
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     senderMessages?: boolean | Users$senderMessagesArgs<ExtArgs>
     receiverMessages?: boolean | Users$receiverMessagesArgs<ExtArgs>
+    groups?: boolean | Users$groupsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1195,6 +1337,7 @@ export namespace Prisma {
     objects: {
       senderMessages: Prisma.$MessagesPayload<ExtArgs>[]
       receiverMessages: Prisma.$MessagesPayload<ExtArgs>[]
+      groups: Prisma.$GroupPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1597,6 +1740,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     senderMessages<T extends Users$senderMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Users$senderMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     receiverMessages<T extends Users$receiverMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Users$receiverMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    groups<T extends Users$groupsArgs<ExtArgs> = {}>(args?: Subset<T, Users$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2066,6 +2210,30 @@ export namespace Prisma {
   }
 
   /**
+   * Users.groups
+   */
+  export type Users$groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    where?: GroupWhereInput
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    cursor?: GroupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupScalarFieldEnum | GroupScalarFieldEnum[]
+  }
+
+  /**
    * Users without action
    */
   export type UsersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2097,22 +2265,31 @@ export namespace Prisma {
   export type MessagesMinAggregateOutputType = {
     id: string | null
     message: string | null
+    imageURL: string | null
     senderId: string | null
     receiverId: string | null
+    time: Date | null
+    groupId: string | null
   }
 
   export type MessagesMaxAggregateOutputType = {
     id: string | null
     message: string | null
+    imageURL: string | null
     senderId: string | null
     receiverId: string | null
+    time: Date | null
+    groupId: string | null
   }
 
   export type MessagesCountAggregateOutputType = {
     id: number
     message: number
+    imageURL: number
     senderId: number
     receiverId: number
+    time: number
+    groupId: number
     _all: number
   }
 
@@ -2120,22 +2297,31 @@ export namespace Prisma {
   export type MessagesMinAggregateInputType = {
     id?: true
     message?: true
+    imageURL?: true
     senderId?: true
     receiverId?: true
+    time?: true
+    groupId?: true
   }
 
   export type MessagesMaxAggregateInputType = {
     id?: true
     message?: true
+    imageURL?: true
     senderId?: true
     receiverId?: true
+    time?: true
+    groupId?: true
   }
 
   export type MessagesCountAggregateInputType = {
     id?: true
     message?: true
+    imageURL?: true
     senderId?: true
     receiverId?: true
+    time?: true
+    groupId?: true
     _all?: true
   }
 
@@ -2213,9 +2399,12 @@ export namespace Prisma {
 
   export type MessagesGroupByOutputType = {
     id: string
-    message: string
+    message: string | null
+    imageURL: string | null
     senderId: string
-    receiverId: string
+    receiverId: string | null
+    time: Date
+    groupId: string | null
     _count: MessagesCountAggregateOutputType | null
     _min: MessagesMinAggregateOutputType | null
     _max: MessagesMaxAggregateOutputType | null
@@ -2238,62 +2427,84 @@ export namespace Prisma {
   export type MessagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message?: boolean
+    imageURL?: boolean
     senderId?: boolean
     receiverId?: boolean
+    time?: boolean
+    groupId?: boolean
     sender?: boolean | UsersDefaultArgs<ExtArgs>
-    receiver?: boolean | UsersDefaultArgs<ExtArgs>
+    receiver?: boolean | Messages$receiverArgs<ExtArgs>
+    group?: boolean | Messages$groupArgs<ExtArgs>
   }, ExtArgs["result"]["messages"]>
 
   export type MessagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message?: boolean
+    imageURL?: boolean
     senderId?: boolean
     receiverId?: boolean
+    time?: boolean
+    groupId?: boolean
     sender?: boolean | UsersDefaultArgs<ExtArgs>
-    receiver?: boolean | UsersDefaultArgs<ExtArgs>
+    receiver?: boolean | Messages$receiverArgs<ExtArgs>
+    group?: boolean | Messages$groupArgs<ExtArgs>
   }, ExtArgs["result"]["messages"]>
 
   export type MessagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message?: boolean
+    imageURL?: boolean
     senderId?: boolean
     receiverId?: boolean
+    time?: boolean
+    groupId?: boolean
     sender?: boolean | UsersDefaultArgs<ExtArgs>
-    receiver?: boolean | UsersDefaultArgs<ExtArgs>
+    receiver?: boolean | Messages$receiverArgs<ExtArgs>
+    group?: boolean | Messages$groupArgs<ExtArgs>
   }, ExtArgs["result"]["messages"]>
 
   export type MessagesSelectScalar = {
     id?: boolean
     message?: boolean
+    imageURL?: boolean
     senderId?: boolean
     receiverId?: boolean
+    time?: boolean
+    groupId?: boolean
   }
 
-  export type MessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "senderId" | "receiverId", ExtArgs["result"]["messages"]>
+  export type MessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "imageURL" | "senderId" | "receiverId" | "time" | "groupId", ExtArgs["result"]["messages"]>
   export type MessagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UsersDefaultArgs<ExtArgs>
-    receiver?: boolean | UsersDefaultArgs<ExtArgs>
+    receiver?: boolean | Messages$receiverArgs<ExtArgs>
+    group?: boolean | Messages$groupArgs<ExtArgs>
   }
   export type MessagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UsersDefaultArgs<ExtArgs>
-    receiver?: boolean | UsersDefaultArgs<ExtArgs>
+    receiver?: boolean | Messages$receiverArgs<ExtArgs>
+    group?: boolean | Messages$groupArgs<ExtArgs>
   }
   export type MessagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UsersDefaultArgs<ExtArgs>
-    receiver?: boolean | UsersDefaultArgs<ExtArgs>
+    receiver?: boolean | Messages$receiverArgs<ExtArgs>
+    group?: boolean | Messages$groupArgs<ExtArgs>
   }
 
   export type $MessagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Messages"
     objects: {
       sender: Prisma.$UsersPayload<ExtArgs>
-      receiver: Prisma.$UsersPayload<ExtArgs>
+      receiver: Prisma.$UsersPayload<ExtArgs> | null
+      group: Prisma.$GroupPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      message: string
+      message: string | null
+      imageURL: string | null
       senderId: string
-      receiverId: string
+      receiverId: string | null
+      time: Date
+      groupId: string | null
     }, ExtArgs["result"]["messages"]>
     composites: {}
   }
@@ -2689,7 +2900,8 @@ export namespace Prisma {
   export interface Prisma__MessagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sender<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    receiver<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    receiver<T extends Messages$receiverArgs<ExtArgs> = {}>(args?: Subset<T, Messages$receiverArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    group<T extends Messages$groupArgs<ExtArgs> = {}>(args?: Subset<T, Messages$groupArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2721,8 +2933,11 @@ export namespace Prisma {
   interface MessagesFieldRefs {
     readonly id: FieldRef<"Messages", 'String'>
     readonly message: FieldRef<"Messages", 'String'>
+    readonly imageURL: FieldRef<"Messages", 'String'>
     readonly senderId: FieldRef<"Messages", 'String'>
     readonly receiverId: FieldRef<"Messages", 'String'>
+    readonly time: FieldRef<"Messages", 'DateTime'>
+    readonly groupId: FieldRef<"Messages", 'String'>
   }
     
 
@@ -3119,6 +3334,44 @@ export namespace Prisma {
   }
 
   /**
+   * Messages.receiver
+   */
+  export type Messages$receiverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Users
+     */
+    select?: UsersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Users
+     */
+    omit?: UsersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    where?: UsersWhereInput
+  }
+
+  /**
+   * Messages.group
+   */
+  export type Messages$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    where?: GroupWhereInput
+  }
+
+  /**
    * Messages without action
    */
   export type MessagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3134,6 +3387,1065 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MessagesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Group
+   */
+
+  export type AggregateGroup = {
+    _count: GroupCountAggregateOutputType | null
+    _min: GroupMinAggregateOutputType | null
+    _max: GroupMaxAggregateOutputType | null
+  }
+
+  export type GroupMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type GroupMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type GroupCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type GroupMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type GroupMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type GroupCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type GroupAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Group to aggregate.
+     */
+    where?: GroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Groups
+    **/
+    _count?: true | GroupCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupMaxAggregateInputType
+  }
+
+  export type GetGroupAggregateType<T extends GroupAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroup]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroup[P]>
+      : GetScalarType<T[P], AggregateGroup[P]>
+  }
+
+
+
+
+  export type GroupGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupWhereInput
+    orderBy?: GroupOrderByWithAggregationInput | GroupOrderByWithAggregationInput[]
+    by: GroupScalarFieldEnum[] | GroupScalarFieldEnum
+    having?: GroupScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupCountAggregateInputType | true
+    _min?: GroupMinAggregateInputType
+    _max?: GroupMaxAggregateInputType
+  }
+
+  export type GroupGroupByOutputType = {
+    id: string
+    name: string
+    _count: GroupCountAggregateOutputType | null
+    _min: GroupMinAggregateOutputType | null
+    _max: GroupMaxAggregateOutputType | null
+  }
+
+  type GetGroupGroupByPayload<T extends GroupGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    users?: boolean | Group$usersArgs<ExtArgs>
+    Messages?: boolean | Group$MessagesArgs<ExtArgs>
+    _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group"]>
+
+  export type GroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["group"]>
+
+  export type GroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["group"]>
+
+  export type GroupSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type GroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["group"]>
+  export type GroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | Group$usersArgs<ExtArgs>
+    Messages?: boolean | Group$MessagesArgs<ExtArgs>
+    _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type GroupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $GroupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Group"
+    objects: {
+      users: Prisma.$UsersPayload<ExtArgs>[]
+      Messages: Prisma.$MessagesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+    }, ExtArgs["result"]["group"]>
+    composites: {}
+  }
+
+  type GroupGetPayload<S extends boolean | null | undefined | GroupDefaultArgs> = $Result.GetResult<Prisma.$GroupPayload, S>
+
+  type GroupCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroupFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroupCountAggregateInputType | true
+    }
+
+  export interface GroupDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Group'], meta: { name: 'Group' } }
+    /**
+     * Find zero or one Group that matches the filter.
+     * @param {GroupFindUniqueArgs} args - Arguments to find a Group
+     * @example
+     * // Get one Group
+     * const group = await prisma.group.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupFindUniqueArgs>(args: SelectSubset<T, GroupFindUniqueArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Group that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroupFindUniqueOrThrowArgs} args - Arguments to find a Group
+     * @example
+     * // Get one Group
+     * const group = await prisma.group.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Group that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupFindFirstArgs} args - Arguments to find a Group
+     * @example
+     * // Get one Group
+     * const group = await prisma.group.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupFindFirstArgs>(args?: SelectSubset<T, GroupFindFirstArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Group that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupFindFirstOrThrowArgs} args - Arguments to find a Group
+     * @example
+     * // Get one Group
+     * const group = await prisma.group.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Groups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Groups
+     * const groups = await prisma.group.findMany()
+     * 
+     * // Get first 10 Groups
+     * const groups = await prisma.group.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupWithIdOnly = await prisma.group.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroupFindManyArgs>(args?: SelectSubset<T, GroupFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Group.
+     * @param {GroupCreateArgs} args - Arguments to create a Group.
+     * @example
+     * // Create one Group
+     * const Group = await prisma.group.create({
+     *   data: {
+     *     // ... data to create a Group
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupCreateArgs>(args: SelectSubset<T, GroupCreateArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Groups.
+     * @param {GroupCreateManyArgs} args - Arguments to create many Groups.
+     * @example
+     * // Create many Groups
+     * const group = await prisma.group.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupCreateManyArgs>(args?: SelectSubset<T, GroupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Groups and returns the data saved in the database.
+     * @param {GroupCreateManyAndReturnArgs} args - Arguments to create many Groups.
+     * @example
+     * // Create many Groups
+     * const group = await prisma.group.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Groups and only return the `id`
+     * const groupWithIdOnly = await prisma.group.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Group.
+     * @param {GroupDeleteArgs} args - Arguments to delete one Group.
+     * @example
+     * // Delete one Group
+     * const Group = await prisma.group.delete({
+     *   where: {
+     *     // ... filter to delete one Group
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupDeleteArgs>(args: SelectSubset<T, GroupDeleteArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Group.
+     * @param {GroupUpdateArgs} args - Arguments to update one Group.
+     * @example
+     * // Update one Group
+     * const group = await prisma.group.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupUpdateArgs>(args: SelectSubset<T, GroupUpdateArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Groups.
+     * @param {GroupDeleteManyArgs} args - Arguments to filter Groups to delete.
+     * @example
+     * // Delete a few Groups
+     * const { count } = await prisma.group.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupDeleteManyArgs>(args?: SelectSubset<T, GroupDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Groups
+     * const group = await prisma.group.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupUpdateManyArgs>(args: SelectSubset<T, GroupUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Groups and returns the data updated in the database.
+     * @param {GroupUpdateManyAndReturnArgs} args - Arguments to update many Groups.
+     * @example
+     * // Update many Groups
+     * const group = await prisma.group.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Groups and only return the `id`
+     * const groupWithIdOnly = await prisma.group.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroupUpdateManyAndReturnArgs>(args: SelectSubset<T, GroupUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Group.
+     * @param {GroupUpsertArgs} args - Arguments to update or create a Group.
+     * @example
+     * // Update or create a Group
+     * const group = await prisma.group.upsert({
+     *   create: {
+     *     // ... data to create a Group
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Group we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupUpsertArgs>(args: SelectSubset<T, GroupUpsertArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupCountArgs} args - Arguments to filter Groups to count.
+     * @example
+     * // Count the number of Groups
+     * const count = await prisma.group.count({
+     *   where: {
+     *     // ... the filter for the Groups we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupCountArgs>(
+      args?: Subset<T, GroupCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Group.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupAggregateArgs>(args: Subset<T, GroupAggregateArgs>): Prisma.PrismaPromise<GetGroupAggregateType<T>>
+
+    /**
+     * Group by Group.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupGroupByArgs['orderBy'] }
+        : { orderBy?: GroupGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Group model
+   */
+  readonly fields: GroupFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Group.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends Group$usersArgs<ExtArgs> = {}>(args?: Subset<T, Group$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Messages<T extends Group$MessagesArgs<ExtArgs> = {}>(args?: Subset<T, Group$MessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Group model
+   */
+  interface GroupFieldRefs {
+    readonly id: FieldRef<"Group", 'String'>
+    readonly name: FieldRef<"Group", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Group findUnique
+   */
+  export type GroupFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * Filter, which Group to fetch.
+     */
+    where: GroupWhereUniqueInput
+  }
+
+  /**
+   * Group findUniqueOrThrow
+   */
+  export type GroupFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * Filter, which Group to fetch.
+     */
+    where: GroupWhereUniqueInput
+  }
+
+  /**
+   * Group findFirst
+   */
+  export type GroupFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * Filter, which Group to fetch.
+     */
+    where?: GroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groups.
+     */
+    cursor?: GroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groups.
+     */
+    distinct?: GroupScalarFieldEnum | GroupScalarFieldEnum[]
+  }
+
+  /**
+   * Group findFirstOrThrow
+   */
+  export type GroupFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * Filter, which Group to fetch.
+     */
+    where?: GroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groups.
+     */
+    cursor?: GroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groups.
+     */
+    distinct?: GroupScalarFieldEnum | GroupScalarFieldEnum[]
+  }
+
+  /**
+   * Group findMany
+   */
+  export type GroupFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Groups.
+     */
+    cursor?: GroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    distinct?: GroupScalarFieldEnum | GroupScalarFieldEnum[]
+  }
+
+  /**
+   * Group create
+   */
+  export type GroupCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Group.
+     */
+    data: XOR<GroupCreateInput, GroupUncheckedCreateInput>
+  }
+
+  /**
+   * Group createMany
+   */
+  export type GroupCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Groups.
+     */
+    data: GroupCreateManyInput | GroupCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Group createManyAndReturn
+   */
+  export type GroupCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * The data used to create many Groups.
+     */
+    data: GroupCreateManyInput | GroupCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Group update
+   */
+  export type GroupUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Group.
+     */
+    data: XOR<GroupUpdateInput, GroupUncheckedUpdateInput>
+    /**
+     * Choose, which Group to update.
+     */
+    where: GroupWhereUniqueInput
+  }
+
+  /**
+   * Group updateMany
+   */
+  export type GroupUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Groups.
+     */
+    data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyInput>
+    /**
+     * Filter which Groups to update
+     */
+    where?: GroupWhereInput
+    /**
+     * Limit how many Groups to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Group updateManyAndReturn
+   */
+  export type GroupUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * The data used to update Groups.
+     */
+    data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyInput>
+    /**
+     * Filter which Groups to update
+     */
+    where?: GroupWhereInput
+    /**
+     * Limit how many Groups to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Group upsert
+   */
+  export type GroupUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Group to update in case it exists.
+     */
+    where: GroupWhereUniqueInput
+    /**
+     * In case the Group found by the `where` argument doesn't exist, create a new Group with this data.
+     */
+    create: XOR<GroupCreateInput, GroupUncheckedCreateInput>
+    /**
+     * In case the Group was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupUpdateInput, GroupUncheckedUpdateInput>
+  }
+
+  /**
+   * Group delete
+   */
+  export type GroupDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    /**
+     * Filter which Group to delete.
+     */
+    where: GroupWhereUniqueInput
+  }
+
+  /**
+   * Group deleteMany
+   */
+  export type GroupDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Groups to delete
+     */
+    where?: GroupWhereInput
+    /**
+     * Limit how many Groups to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Group.users
+   */
+  export type Group$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Users
+     */
+    select?: UsersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Users
+     */
+    omit?: UsersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    where?: UsersWhereInput
+    orderBy?: UsersOrderByWithRelationInput | UsersOrderByWithRelationInput[]
+    cursor?: UsersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UsersScalarFieldEnum | UsersScalarFieldEnum[]
+  }
+
+  /**
+   * Group.Messages
+   */
+  export type Group$MessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    where?: MessagesWhereInput
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    cursor?: MessagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
+   * Group without action
+   */
+  export type GroupDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
   }
 
 
@@ -3164,11 +4476,22 @@ export namespace Prisma {
   export const MessagesScalarFieldEnum: {
     id: 'id',
     message: 'message',
+    imageURL: 'imageURL',
     senderId: 'senderId',
-    receiverId: 'receiverId'
+    receiverId: 'receiverId',
+    time: 'time',
+    groupId: 'groupId'
   };
 
   export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
+  export const GroupScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3187,6 +4510,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
@@ -3203,6 +4534,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -3233,6 +4578,7 @@ export namespace Prisma {
     hash?: StringFilter<"Users"> | string
     senderMessages?: MessagesListRelationFilter
     receiverMessages?: MessagesListRelationFilter
+    groups?: GroupListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -3242,6 +4588,7 @@ export namespace Prisma {
     hash?: SortOrder
     senderMessages?: MessagesOrderByRelationAggregateInput
     receiverMessages?: MessagesOrderByRelationAggregateInput
+    groups?: GroupOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -3254,6 +4601,7 @@ export namespace Prisma {
     hash?: StringFilter<"Users"> | string
     senderMessages?: MessagesListRelationFilter
     receiverMessages?: MessagesListRelationFilter
+    groups?: GroupListRelationFilter
   }, "id">
 
   export type UsersOrderByWithAggregationInput = {
@@ -3281,20 +4629,28 @@ export namespace Prisma {
     OR?: MessagesWhereInput[]
     NOT?: MessagesWhereInput | MessagesWhereInput[]
     id?: StringFilter<"Messages"> | string
-    message?: StringFilter<"Messages"> | string
+    message?: StringNullableFilter<"Messages"> | string | null
+    imageURL?: StringNullableFilter<"Messages"> | string | null
     senderId?: StringFilter<"Messages"> | string
-    receiverId?: StringFilter<"Messages"> | string
+    receiverId?: StringNullableFilter<"Messages"> | string | null
+    time?: DateTimeFilter<"Messages"> | Date | string
+    groupId?: StringNullableFilter<"Messages"> | string | null
     sender?: XOR<UsersScalarRelationFilter, UsersWhereInput>
-    receiver?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    receiver?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
+    group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
   }
 
   export type MessagesOrderByWithRelationInput = {
     id?: SortOrder
-    message?: SortOrder
+    message?: SortOrderInput | SortOrder
+    imageURL?: SortOrderInput | SortOrder
     senderId?: SortOrder
-    receiverId?: SortOrder
+    receiverId?: SortOrderInput | SortOrder
+    time?: SortOrder
+    groupId?: SortOrderInput | SortOrder
     sender?: UsersOrderByWithRelationInput
     receiver?: UsersOrderByWithRelationInput
+    group?: GroupOrderByWithRelationInput
   }
 
   export type MessagesWhereUniqueInput = Prisma.AtLeast<{
@@ -3302,18 +4658,25 @@ export namespace Prisma {
     AND?: MessagesWhereInput | MessagesWhereInput[]
     OR?: MessagesWhereInput[]
     NOT?: MessagesWhereInput | MessagesWhereInput[]
-    message?: StringFilter<"Messages"> | string
+    message?: StringNullableFilter<"Messages"> | string | null
+    imageURL?: StringNullableFilter<"Messages"> | string | null
     senderId?: StringFilter<"Messages"> | string
-    receiverId?: StringFilter<"Messages"> | string
+    receiverId?: StringNullableFilter<"Messages"> | string | null
+    time?: DateTimeFilter<"Messages"> | Date | string
+    groupId?: StringNullableFilter<"Messages"> | string | null
     sender?: XOR<UsersScalarRelationFilter, UsersWhereInput>
-    receiver?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    receiver?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
+    group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
   }, "id">
 
   export type MessagesOrderByWithAggregationInput = {
     id?: SortOrder
-    message?: SortOrder
+    message?: SortOrderInput | SortOrder
+    imageURL?: SortOrderInput | SortOrder
     senderId?: SortOrder
-    receiverId?: SortOrder
+    receiverId?: SortOrderInput | SortOrder
+    time?: SortOrder
+    groupId?: SortOrderInput | SortOrder
     _count?: MessagesCountOrderByAggregateInput
     _max?: MessagesMaxOrderByAggregateInput
     _min?: MessagesMinOrderByAggregateInput
@@ -3324,9 +4687,55 @@ export namespace Prisma {
     OR?: MessagesScalarWhereWithAggregatesInput[]
     NOT?: MessagesScalarWhereWithAggregatesInput | MessagesScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Messages"> | string
-    message?: StringWithAggregatesFilter<"Messages"> | string
+    message?: StringNullableWithAggregatesFilter<"Messages"> | string | null
+    imageURL?: StringNullableWithAggregatesFilter<"Messages"> | string | null
     senderId?: StringWithAggregatesFilter<"Messages"> | string
-    receiverId?: StringWithAggregatesFilter<"Messages"> | string
+    receiverId?: StringNullableWithAggregatesFilter<"Messages"> | string | null
+    time?: DateTimeWithAggregatesFilter<"Messages"> | Date | string
+    groupId?: StringNullableWithAggregatesFilter<"Messages"> | string | null
+  }
+
+  export type GroupWhereInput = {
+    AND?: GroupWhereInput | GroupWhereInput[]
+    OR?: GroupWhereInput[]
+    NOT?: GroupWhereInput | GroupWhereInput[]
+    id?: StringFilter<"Group"> | string
+    name?: StringFilter<"Group"> | string
+    users?: UsersListRelationFilter
+    Messages?: MessagesListRelationFilter
+  }
+
+  export type GroupOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    users?: UsersOrderByRelationAggregateInput
+    Messages?: MessagesOrderByRelationAggregateInput
+  }
+
+  export type GroupWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GroupWhereInput | GroupWhereInput[]
+    OR?: GroupWhereInput[]
+    NOT?: GroupWhereInput | GroupWhereInput[]
+    name?: StringFilter<"Group"> | string
+    users?: UsersListRelationFilter
+    Messages?: MessagesListRelationFilter
+  }, "id">
+
+  export type GroupOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: GroupCountOrderByAggregateInput
+    _max?: GroupMaxOrderByAggregateInput
+    _min?: GroupMinOrderByAggregateInput
+  }
+
+  export type GroupScalarWhereWithAggregatesInput = {
+    AND?: GroupScalarWhereWithAggregatesInput | GroupScalarWhereWithAggregatesInput[]
+    OR?: GroupScalarWhereWithAggregatesInput[]
+    NOT?: GroupScalarWhereWithAggregatesInput | GroupScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Group"> | string
+    name?: StringWithAggregatesFilter<"Group"> | string
   }
 
   export type UsersCreateInput = {
@@ -3336,6 +4745,7 @@ export namespace Prisma {
     hash: string
     senderMessages?: MessagesCreateNestedManyWithoutSenderInput
     receiverMessages?: MessagesCreateNestedManyWithoutReceiverInput
+    groups?: GroupCreateNestedManyWithoutUsersInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -3345,6 +4755,7 @@ export namespace Prisma {
     hash: string
     senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
     receiverMessages?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+    groups?: GroupUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UsersUpdateInput = {
@@ -3354,6 +4765,7 @@ export namespace Prisma {
     hash?: StringFieldUpdateOperationsInput | string
     senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
     receiverMessages?: MessagesUpdateManyWithoutReceiverNestedInput
+    groups?: GroupUpdateManyWithoutUsersNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -3363,6 +4775,7 @@ export namespace Prisma {
     hash?: StringFieldUpdateOperationsInput | string
     senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
     receiverMessages?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+    groups?: GroupUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -3388,49 +4801,112 @@ export namespace Prisma {
 
   export type MessagesCreateInput = {
     id?: string
-    message: string
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
     sender: UsersCreateNestedOneWithoutSenderMessagesInput
-    receiver: UsersCreateNestedOneWithoutReceiverMessagesInput
+    receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
+    group?: GroupCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateInput = {
     id?: string
-    message: string
+    message?: string | null
+    imageURL?: string | null
     senderId: string
-    receiverId: string
+    receiverId?: string | null
+    time?: Date | string
+    groupId?: string | null
   }
 
   export type MessagesUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
-    receiver?: UsersUpdateOneRequiredWithoutReceiverMessagesNestedInput
+    receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
+    group?: GroupUpdateOneWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
     senderId?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesCreateManyInput = {
     id?: string
-    message: string
+    message?: string | null
+    imageURL?: string | null
     senderId: string
-    receiverId: string
+    receiverId?: string | null
+    time?: Date | string
+    groupId?: string | null
   }
 
   export type MessagesUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessagesUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
     senderId?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GroupCreateInput = {
+    id?: string
+    name: string
+    users?: UsersCreateNestedManyWithoutGroupsInput
+    Messages?: MessagesCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupUncheckedCreateInput = {
+    id?: string
+    name: string
+    users?: UsersUncheckedCreateNestedManyWithoutGroupsInput
+    Messages?: MessagesUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    users?: UsersUpdateManyWithoutGroupsNestedInput
+    Messages?: MessagesUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    users?: UsersUncheckedUpdateManyWithoutGroupsNestedInput
+    Messages?: MessagesUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupCreateManyInput = {
+    id?: string
+    name: string
+  }
+
+  export type GroupUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GroupUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3454,7 +4930,17 @@ export namespace Prisma {
     none?: MessagesWhereInput
   }
 
+  export type GroupListRelationFilter = {
+    every?: GroupWhereInput
+    some?: GroupWhereInput
+    none?: GroupWhereInput
+  }
+
   export type MessagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3497,30 +4983,137 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type UsersScalarRelationFilter = {
     is?: UsersWhereInput
     isNot?: UsersWhereInput
   }
 
+  export type UsersNullableScalarRelationFilter = {
+    is?: UsersWhereInput | null
+    isNot?: UsersWhereInput | null
+  }
+
+  export type GroupNullableScalarRelationFilter = {
+    is?: GroupWhereInput | null
+    isNot?: GroupWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type MessagesCountOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
+    imageURL?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrder
+    time?: SortOrder
+    groupId?: SortOrder
   }
 
   export type MessagesMaxOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
+    imageURL?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrder
+    time?: SortOrder
+    groupId?: SortOrder
   }
 
   export type MessagesMinOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
+    imageURL?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrder
+    time?: SortOrder
+    groupId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type UsersListRelationFilter = {
+    every?: UsersWhereInput
+    some?: UsersWhereInput
+    none?: UsersWhereInput
+  }
+
+  export type UsersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type GroupMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type GroupMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
   }
 
   export type MessagesCreateNestedManyWithoutSenderInput = {
@@ -3537,6 +5130,12 @@ export namespace Prisma {
     connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
   }
 
+  export type GroupCreateNestedManyWithoutUsersInput = {
+    create?: XOR<GroupCreateWithoutUsersInput, GroupUncheckedCreateWithoutUsersInput> | GroupCreateWithoutUsersInput[] | GroupUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutUsersInput | GroupCreateOrConnectWithoutUsersInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+  }
+
   export type MessagesUncheckedCreateNestedManyWithoutSenderInput = {
     create?: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput> | MessagesCreateWithoutSenderInput[] | MessagesUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessagesCreateOrConnectWithoutSenderInput | MessagesCreateOrConnectWithoutSenderInput[]
@@ -3549,6 +5148,12 @@ export namespace Prisma {
     connectOrCreate?: MessagesCreateOrConnectWithoutReceiverInput | MessagesCreateOrConnectWithoutReceiverInput[]
     createMany?: MessagesCreateManyReceiverInputEnvelope
     connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
+  export type GroupUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<GroupCreateWithoutUsersInput, GroupUncheckedCreateWithoutUsersInput> | GroupCreateWithoutUsersInput[] | GroupUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutUsersInput | GroupCreateOrConnectWithoutUsersInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3583,6 +5188,19 @@ export namespace Prisma {
     deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
   }
 
+  export type GroupUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<GroupCreateWithoutUsersInput, GroupUncheckedCreateWithoutUsersInput> | GroupCreateWithoutUsersInput[] | GroupUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutUsersInput | GroupCreateOrConnectWithoutUsersInput[]
+    upsert?: GroupUpsertWithWhereUniqueWithoutUsersInput | GroupUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    disconnect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    delete?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    update?: GroupUpdateWithWhereUniqueWithoutUsersInput | GroupUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: GroupUpdateManyWithWhereWithoutUsersInput | GroupUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
+  }
+
   export type MessagesUncheckedUpdateManyWithoutSenderNestedInput = {
     create?: XOR<MessagesCreateWithoutSenderInput, MessagesUncheckedCreateWithoutSenderInput> | MessagesCreateWithoutSenderInput[] | MessagesUncheckedCreateWithoutSenderInput[]
     connectOrCreate?: MessagesCreateOrConnectWithoutSenderInput | MessagesCreateOrConnectWithoutSenderInput[]
@@ -3611,6 +5229,19 @@ export namespace Prisma {
     deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
   }
 
+  export type GroupUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<GroupCreateWithoutUsersInput, GroupUncheckedCreateWithoutUsersInput> | GroupCreateWithoutUsersInput[] | GroupUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutUsersInput | GroupCreateOrConnectWithoutUsersInput[]
+    upsert?: GroupUpsertWithWhereUniqueWithoutUsersInput | GroupUpsertWithWhereUniqueWithoutUsersInput[]
+    set?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    disconnect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    delete?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    update?: GroupUpdateWithWhereUniqueWithoutUsersInput | GroupUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: GroupUpdateManyWithWhereWithoutUsersInput | GroupUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
+  }
+
   export type UsersCreateNestedOneWithoutSenderMessagesInput = {
     create?: XOR<UsersCreateWithoutSenderMessagesInput, UsersUncheckedCreateWithoutSenderMessagesInput>
     connectOrCreate?: UsersCreateOrConnectWithoutSenderMessagesInput
@@ -3623,6 +5254,20 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput
   }
 
+  export type GroupCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<GroupCreateWithoutMessagesInput, GroupUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutMessagesInput
+    connect?: GroupWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type UsersUpdateOneRequiredWithoutSenderMessagesNestedInput = {
     create?: XOR<UsersCreateWithoutSenderMessagesInput, UsersUncheckedCreateWithoutSenderMessagesInput>
     connectOrCreate?: UsersCreateOrConnectWithoutSenderMessagesInput
@@ -3631,12 +5276,104 @@ export namespace Prisma {
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutSenderMessagesInput, UsersUpdateWithoutSenderMessagesInput>, UsersUncheckedUpdateWithoutSenderMessagesInput>
   }
 
-  export type UsersUpdateOneRequiredWithoutReceiverMessagesNestedInput = {
+  export type UsersUpdateOneWithoutReceiverMessagesNestedInput = {
     create?: XOR<UsersCreateWithoutReceiverMessagesInput, UsersUncheckedCreateWithoutReceiverMessagesInput>
     connectOrCreate?: UsersCreateOrConnectWithoutReceiverMessagesInput
     upsert?: UsersUpsertWithoutReceiverMessagesInput
+    disconnect?: UsersWhereInput | boolean
+    delete?: UsersWhereInput | boolean
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutReceiverMessagesInput, UsersUpdateWithoutReceiverMessagesInput>, UsersUncheckedUpdateWithoutReceiverMessagesInput>
+  }
+
+  export type GroupUpdateOneWithoutMessagesNestedInput = {
+    create?: XOR<GroupCreateWithoutMessagesInput, GroupUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutMessagesInput
+    upsert?: GroupUpsertWithoutMessagesInput
+    disconnect?: GroupWhereInput | boolean
+    delete?: GroupWhereInput | boolean
+    connect?: GroupWhereUniqueInput
+    update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutMessagesInput, GroupUpdateWithoutMessagesInput>, GroupUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UsersCreateNestedManyWithoutGroupsInput = {
+    create?: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput> | UsersCreateWithoutGroupsInput[] | UsersUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupsInput | UsersCreateOrConnectWithoutGroupsInput[]
+    connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type MessagesCreateNestedManyWithoutGroupInput = {
+    create?: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput> | MessagesCreateWithoutGroupInput[] | MessagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutGroupInput | MessagesCreateOrConnectWithoutGroupInput[]
+    createMany?: MessagesCreateManyGroupInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
+  export type UsersUncheckedCreateNestedManyWithoutGroupsInput = {
+    create?: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput> | UsersCreateWithoutGroupsInput[] | UsersUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupsInput | UsersCreateOrConnectWithoutGroupsInput[]
+    connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+  }
+
+  export type MessagesUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput> | MessagesCreateWithoutGroupInput[] | MessagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutGroupInput | MessagesCreateOrConnectWithoutGroupInput[]
+    createMany?: MessagesCreateManyGroupInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
+  export type UsersUpdateManyWithoutGroupsNestedInput = {
+    create?: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput> | UsersCreateWithoutGroupsInput[] | UsersUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupsInput | UsersCreateOrConnectWithoutGroupsInput[]
+    upsert?: UsersUpsertWithWhereUniqueWithoutGroupsInput | UsersUpsertWithWhereUniqueWithoutGroupsInput[]
+    set?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    disconnect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    delete?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    update?: UsersUpdateWithWhereUniqueWithoutGroupsInput | UsersUpdateWithWhereUniqueWithoutGroupsInput[]
+    updateMany?: UsersUpdateManyWithWhereWithoutGroupsInput | UsersUpdateManyWithWhereWithoutGroupsInput[]
+    deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
+  }
+
+  export type MessagesUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput> | MessagesCreateWithoutGroupInput[] | MessagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutGroupInput | MessagesCreateOrConnectWithoutGroupInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutGroupInput | MessagesUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: MessagesCreateManyGroupInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutGroupInput | MessagesUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutGroupInput | MessagesUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+  }
+
+  export type UsersUncheckedUpdateManyWithoutGroupsNestedInput = {
+    create?: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput> | UsersCreateWithoutGroupsInput[] | UsersUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupsInput | UsersCreateOrConnectWithoutGroupsInput[]
+    upsert?: UsersUpsertWithWhereUniqueWithoutGroupsInput | UsersUpsertWithWhereUniqueWithoutGroupsInput[]
+    set?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    disconnect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    delete?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    connect?: UsersWhereUniqueInput | UsersWhereUniqueInput[]
+    update?: UsersUpdateWithWhereUniqueWithoutGroupsInput | UsersUpdateWithWhereUniqueWithoutGroupsInput[]
+    updateMany?: UsersUpdateManyWithWhereWithoutGroupsInput | UsersUpdateManyWithWhereWithoutGroupsInput[]
+    deleteMany?: UsersScalarWhereInput | UsersScalarWhereInput[]
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput> | MessagesCreateWithoutGroupInput[] | MessagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutGroupInput | MessagesCreateOrConnectWithoutGroupInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutGroupInput | MessagesUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: MessagesCreateManyGroupInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutGroupInput | MessagesUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutGroupInput | MessagesUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3681,16 +5418,89 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type MessagesCreateWithoutSenderInput = {
     id?: string
-    message: string
-    receiver: UsersCreateNestedOneWithoutReceiverMessagesInput
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
+    receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
+    group?: GroupCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateWithoutSenderInput = {
     id?: string
-    message: string
-    receiverId: string
+    message?: string | null
+    imageURL?: string | null
+    receiverId?: string | null
+    time?: Date | string
+    groupId?: string | null
   }
 
   export type MessagesCreateOrConnectWithoutSenderInput = {
@@ -3705,14 +5515,20 @@ export namespace Prisma {
 
   export type MessagesCreateWithoutReceiverInput = {
     id?: string
-    message: string
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
     sender: UsersCreateNestedOneWithoutSenderMessagesInput
+    group?: GroupCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateWithoutReceiverInput = {
     id?: string
-    message: string
+    message?: string | null
+    imageURL?: string | null
     senderId: string
+    time?: Date | string
+    groupId?: string | null
   }
 
   export type MessagesCreateOrConnectWithoutReceiverInput = {
@@ -3723,6 +5539,23 @@ export namespace Prisma {
   export type MessagesCreateManyReceiverInputEnvelope = {
     data: MessagesCreateManyReceiverInput | MessagesCreateManyReceiverInput[]
     skipDuplicates?: boolean
+  }
+
+  export type GroupCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    Messages?: MessagesCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    Messages?: MessagesUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupCreateOrConnectWithoutUsersInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutUsersInput, GroupUncheckedCreateWithoutUsersInput>
   }
 
   export type MessagesUpsertWithWhereUniqueWithoutSenderInput = {
@@ -3746,9 +5579,12 @@ export namespace Prisma {
     OR?: MessagesScalarWhereInput[]
     NOT?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
     id?: StringFilter<"Messages"> | string
-    message?: StringFilter<"Messages"> | string
+    message?: StringNullableFilter<"Messages"> | string | null
+    imageURL?: StringNullableFilter<"Messages"> | string | null
     senderId?: StringFilter<"Messages"> | string
-    receiverId?: StringFilter<"Messages"> | string
+    receiverId?: StringNullableFilter<"Messages"> | string | null
+    time?: DateTimeFilter<"Messages"> | Date | string
+    groupId?: StringNullableFilter<"Messages"> | string | null
   }
 
   export type MessagesUpsertWithWhereUniqueWithoutReceiverInput = {
@@ -3767,12 +5603,37 @@ export namespace Prisma {
     data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyWithoutReceiverInput>
   }
 
+  export type GroupUpsertWithWhereUniqueWithoutUsersInput = {
+    where: GroupWhereUniqueInput
+    update: XOR<GroupUpdateWithoutUsersInput, GroupUncheckedUpdateWithoutUsersInput>
+    create: XOR<GroupCreateWithoutUsersInput, GroupUncheckedCreateWithoutUsersInput>
+  }
+
+  export type GroupUpdateWithWhereUniqueWithoutUsersInput = {
+    where: GroupWhereUniqueInput
+    data: XOR<GroupUpdateWithoutUsersInput, GroupUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type GroupUpdateManyWithWhereWithoutUsersInput = {
+    where: GroupScalarWhereInput
+    data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type GroupScalarWhereInput = {
+    AND?: GroupScalarWhereInput | GroupScalarWhereInput[]
+    OR?: GroupScalarWhereInput[]
+    NOT?: GroupScalarWhereInput | GroupScalarWhereInput[]
+    id?: StringFilter<"Group"> | string
+    name?: StringFilter<"Group"> | string
+  }
+
   export type UsersCreateWithoutSenderMessagesInput = {
     id?: string
     username: string
     salt: string
     hash: string
     receiverMessages?: MessagesCreateNestedManyWithoutReceiverInput
+    groups?: GroupCreateNestedManyWithoutUsersInput
   }
 
   export type UsersUncheckedCreateWithoutSenderMessagesInput = {
@@ -3781,6 +5642,7 @@ export namespace Prisma {
     salt: string
     hash: string
     receiverMessages?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+    groups?: GroupUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UsersCreateOrConnectWithoutSenderMessagesInput = {
@@ -3794,6 +5656,7 @@ export namespace Prisma {
     salt: string
     hash: string
     senderMessages?: MessagesCreateNestedManyWithoutSenderInput
+    groups?: GroupCreateNestedManyWithoutUsersInput
   }
 
   export type UsersUncheckedCreateWithoutReceiverMessagesInput = {
@@ -3802,11 +5665,29 @@ export namespace Prisma {
     salt: string
     hash: string
     senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
+    groups?: GroupUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UsersCreateOrConnectWithoutReceiverMessagesInput = {
     where: UsersWhereUniqueInput
     create: XOR<UsersCreateWithoutReceiverMessagesInput, UsersUncheckedCreateWithoutReceiverMessagesInput>
+  }
+
+  export type GroupCreateWithoutMessagesInput = {
+    id?: string
+    name: string
+    users?: UsersCreateNestedManyWithoutGroupsInput
+  }
+
+  export type GroupUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    name: string
+    users?: UsersUncheckedCreateNestedManyWithoutGroupsInput
+  }
+
+  export type GroupCreateOrConnectWithoutMessagesInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutMessagesInput, GroupUncheckedCreateWithoutMessagesInput>
   }
 
   export type UsersUpsertWithoutSenderMessagesInput = {
@@ -3826,6 +5707,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     hash?: StringFieldUpdateOperationsInput | string
     receiverMessages?: MessagesUpdateManyWithoutReceiverNestedInput
+    groups?: GroupUpdateManyWithoutUsersNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutSenderMessagesInput = {
@@ -3834,6 +5716,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     hash?: StringFieldUpdateOperationsInput | string
     receiverMessages?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+    groups?: GroupUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UsersUpsertWithoutReceiverMessagesInput = {
@@ -3853,6 +5736,7 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     hash?: StringFieldUpdateOperationsInput | string
     senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
+    groups?: GroupUpdateManyWithoutUsersNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutReceiverMessagesInput = {
@@ -3861,54 +5745,273 @@ export namespace Prisma {
     salt?: StringFieldUpdateOperationsInput | string
     hash?: StringFieldUpdateOperationsInput | string
     senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
+    groups?: GroupUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type GroupUpsertWithoutMessagesInput = {
+    update: XOR<GroupUpdateWithoutMessagesInput, GroupUncheckedUpdateWithoutMessagesInput>
+    create: XOR<GroupCreateWithoutMessagesInput, GroupUncheckedCreateWithoutMessagesInput>
+    where?: GroupWhereInput
+  }
+
+  export type GroupUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: GroupWhereInput
+    data: XOR<GroupUpdateWithoutMessagesInput, GroupUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type GroupUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    users?: UsersUpdateManyWithoutGroupsNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    users?: UsersUncheckedUpdateManyWithoutGroupsNestedInput
+  }
+
+  export type UsersCreateWithoutGroupsInput = {
+    id?: string
+    username: string
+    salt: string
+    hash: string
+    senderMessages?: MessagesCreateNestedManyWithoutSenderInput
+    receiverMessages?: MessagesCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UsersUncheckedCreateWithoutGroupsInput = {
+    id?: string
+    username: string
+    salt: string
+    hash: string
+    senderMessages?: MessagesUncheckedCreateNestedManyWithoutSenderInput
+    receiverMessages?: MessagesUncheckedCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UsersCreateOrConnectWithoutGroupsInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
+  }
+
+  export type MessagesCreateWithoutGroupInput = {
+    id?: string
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
+    sender: UsersCreateNestedOneWithoutSenderMessagesInput
+    receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
+  }
+
+  export type MessagesUncheckedCreateWithoutGroupInput = {
+    id?: string
+    message?: string | null
+    imageURL?: string | null
+    senderId: string
+    receiverId?: string | null
+    time?: Date | string
+  }
+
+  export type MessagesCreateOrConnectWithoutGroupInput = {
+    where: MessagesWhereUniqueInput
+    create: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput>
+  }
+
+  export type MessagesCreateManyGroupInputEnvelope = {
+    data: MessagesCreateManyGroupInput | MessagesCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsersUpsertWithWhereUniqueWithoutGroupsInput = {
+    where: UsersWhereUniqueInput
+    update: XOR<UsersUpdateWithoutGroupsInput, UsersUncheckedUpdateWithoutGroupsInput>
+    create: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
+  }
+
+  export type UsersUpdateWithWhereUniqueWithoutGroupsInput = {
+    where: UsersWhereUniqueInput
+    data: XOR<UsersUpdateWithoutGroupsInput, UsersUncheckedUpdateWithoutGroupsInput>
+  }
+
+  export type UsersUpdateManyWithWhereWithoutGroupsInput = {
+    where: UsersScalarWhereInput
+    data: XOR<UsersUpdateManyMutationInput, UsersUncheckedUpdateManyWithoutGroupsInput>
+  }
+
+  export type UsersScalarWhereInput = {
+    AND?: UsersScalarWhereInput | UsersScalarWhereInput[]
+    OR?: UsersScalarWhereInput[]
+    NOT?: UsersScalarWhereInput | UsersScalarWhereInput[]
+    id?: StringFilter<"Users"> | string
+    username?: StringFilter<"Users"> | string
+    salt?: StringFilter<"Users"> | string
+    hash?: StringFilter<"Users"> | string
+  }
+
+  export type MessagesUpsertWithWhereUniqueWithoutGroupInput = {
+    where: MessagesWhereUniqueInput
+    update: XOR<MessagesUpdateWithoutGroupInput, MessagesUncheckedUpdateWithoutGroupInput>
+    create: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput>
+  }
+
+  export type MessagesUpdateWithWhereUniqueWithoutGroupInput = {
+    where: MessagesWhereUniqueInput
+    data: XOR<MessagesUpdateWithoutGroupInput, MessagesUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type MessagesUpdateManyWithWhereWithoutGroupInput = {
+    where: MessagesScalarWhereInput
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyWithoutGroupInput>
   }
 
   export type MessagesCreateManySenderInput = {
     id?: string
-    message: string
-    receiverId: string
+    message?: string | null
+    imageURL?: string | null
+    receiverId?: string | null
+    time?: Date | string
+    groupId?: string | null
   }
 
   export type MessagesCreateManyReceiverInput = {
     id?: string
-    message: string
+    message?: string | null
+    imageURL?: string | null
     senderId: string
+    time?: Date | string
+    groupId?: string | null
   }
 
   export type MessagesUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    receiver?: UsersUpdateOneRequiredWithoutReceiverMessagesNestedInput
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
+    group?: GroupUpdateOneWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesUncheckedUpdateManyWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    receiverId?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesUpdateWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
+    group?: GroupUpdateOneWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
     senderId?: StringFieldUpdateOperationsInput | string
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesUncheckedUpdateManyWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
     senderId?: StringFieldUpdateOperationsInput | string
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GroupUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    Messages?: MessagesUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    Messages?: MessagesUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateManyWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessagesCreateManyGroupInput = {
+    id?: string
+    message?: string | null
+    imageURL?: string | null
+    senderId: string
+    receiverId?: string | null
+    time?: Date | string
+  }
+
+  export type UsersUpdateWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    salt?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    senderMessages?: MessagesUpdateManyWithoutSenderNestedInput
+    receiverMessages?: MessagesUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    salt?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    senderMessages?: MessagesUncheckedUpdateManyWithoutSenderNestedInput
+    receiverMessages?: MessagesUncheckedUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UsersUncheckedUpdateManyWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    salt?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessagesUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
+    receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
+  }
+
+  export type MessagesUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

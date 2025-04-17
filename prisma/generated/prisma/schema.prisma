@@ -15,13 +15,25 @@ model Users {
   hash             String
   senderMessages   Messages[] @relation("senderId")
   receiverMessages Messages[] @relation("receiverId")
+  groups           Group[]
 }
 
 model Messages {
-  id         String @id @default(uuid())
-  message    String
-  sender     Users  @relation("senderId", fields: [senderId], references: [id])
+  id         String   @id @default(uuid())
+  message    String?
+  imageURL   String?
+  sender     Users    @relation("senderId", fields: [senderId], references: [id])
   senderId   String
-  receiver   Users  @relation("receiverId", fields: [receiverId], references: [id])
-  receiverId String
+  receiver   Users?   @relation("receiverId", fields: [receiverId], references: [id])
+  receiverId String?
+  time       DateTime @default(now())
+  group      Group?   @relation(fields: [groupId], references: [id])
+  groupId    String?
+}
+
+model Group {
+  id       String     @id @default(uuid())
+  name     String
+  users    Users[]
+  Messages Messages[]
 }

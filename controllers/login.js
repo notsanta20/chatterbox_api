@@ -26,7 +26,8 @@ async function login(req, res) {
       });
 
       if (!userData) {
-        throw new Error("Username does not exists");
+        res.status(401).json("Username does not exists");
+        return;
       }
 
       const salt = userData.salt;
@@ -35,7 +36,8 @@ async function login(req, res) {
       const verify = verifyHash(data.username, data.password, salt, hash);
 
       if (!verify) {
-        throw new Error("password is not matching");
+        res.status(401).json("password is not matching");
+        return;
       }
 
       const tokenData = {
@@ -47,7 +49,7 @@ async function login(req, res) {
       jwt.sign(
         { user: tokenData },
         secret,
-        { expiresIn: "2m" },
+        { expiresIn: "5m" },
         (err, token) => {
           if (err) {
             res.status(501).json({ error: "Internal server error, try again" });
@@ -68,7 +70,7 @@ async function login(req, res) {
       }
     }
   } else {
-    res.json({ message: "Already logged in" });
+    res.json({ message: "Already logged in", auth: req.authorization });
   }
 }
 
