@@ -1,9 +1,9 @@
 const { PrismaClient } = require("../prisma/generated/prisma/client");
 const prisma = new PrismaClient();
 
-async function messagePost(req, res) {
+async function groupMessagePost(req, res) {
   if (req.authorization) {
-    let { message, imageURL, receiverId } = req.body;
+    let { message, imageURL, groupId } = req.body;
 
     if (typeof message === "undefined") {
       message = null;
@@ -18,7 +18,7 @@ async function messagePost(req, res) {
           message: message,
           imageURL: imageURL,
           senderId: req.user.id,
-          receiverId: receiverId,
+          groupId: groupId,
         },
       });
       console.log(data);
@@ -33,4 +33,4 @@ async function messagePost(req, res) {
   }
 }
 
-module.exports = messagePost;
+module.exports = groupMessagePost;
