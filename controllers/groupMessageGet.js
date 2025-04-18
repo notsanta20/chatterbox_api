@@ -6,6 +6,13 @@ async function groupMessageGet(req, res) {
     const { groupId } = req.body;
 
     try {
+      if (typeof groupId === "undefined") {
+        res
+          .status(403)
+          .json({ message: "Error in fetching messages, try again" });
+        return;
+      }
+
       const data = await prisma.messages.findMany({
         where: {
           groupId: groupId,

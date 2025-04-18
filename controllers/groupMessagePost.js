@@ -13,6 +13,10 @@ async function groupMessagePost(req, res) {
     }
 
     try {
+      if (typeof groupId === "undefined") {
+        res.status(403).json({ message: "Group does not exists, try again" });
+        return;
+      }
       const data = await prisma.messages.create({
         data: {
           message: message,
