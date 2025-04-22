@@ -121,7 +121,9 @@ exports.Prisma.UsersScalarFieldEnum = {
   id: 'id',
   username: 'username',
   salt: 'salt',
-  hash: 'hash'
+  hash: 'hash',
+  profile: 'profile',
+  bio: 'bio'
 };
 
 exports.Prisma.MessagesScalarFieldEnum = {
@@ -136,7 +138,14 @@ exports.Prisma.MessagesScalarFieldEnum = {
 
 exports.Prisma.GroupScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  profile: 'profile'
+};
+
+exports.Prisma.GroupMembersScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -158,7 +167,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Users: 'Users',
   Messages: 'Messages',
-  Group: 'Group'
+  Group: 'Group',
+  GroupMembers: 'GroupMembers'
 };
 
 /**

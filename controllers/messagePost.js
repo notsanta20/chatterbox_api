@@ -13,6 +13,16 @@ async function messagePost(req, res) {
     }
 
     try {
+      if (typeof receiverId === "undefined") {
+        res
+          .status(403)
+          .json({
+            message: "Receiver contact error, try again",
+            auth: req.authorization,
+          });
+        return;
+      }
+
       const data = await prisma.messages.create({
         data: {
           message: message,
@@ -22,14 +32,17 @@ async function messagePost(req, res) {
         },
       });
       console.log(data);
-      res.json({ message: "Message sent" });
+      res.json({ message: "Message sent", auth: req.authorization });
     } catch (err) {
-      res.status(501).json({ message: "server error", error: err });
+      res
+        .status(501)
+        .json({ message: "server error", error: err, auth: req.authorization });
     }
   } else {
-    res
-      .status(403)
-      .json({ error: "Unauthorized entry, login to send message" });
+    res.status(403).json({
+      error: "Unauthorized entry, login to send message",
+      auth: req.authorization,
+    });
   }
 }
 

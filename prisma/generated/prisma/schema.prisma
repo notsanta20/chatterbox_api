@@ -9,13 +9,15 @@ datasource db {
 }
 
 model Users {
-  id               String     @id @default(uuid())
+  id               String         @id @default(uuid())
   username         String
   salt             String
   hash             String
-  senderMessages   Messages[] @relation("senderId")
-  receiverMessages Messages[] @relation("receiverId")
-  groups           Group[]
+  profile          String?
+  bio              String?
+  senderMessages   Messages[]     @relation("senderId")
+  receiverMessages Messages[]     @relation("receiverId")
+  Members          GroupMembers[]
 }
 
 model Messages {
@@ -32,8 +34,17 @@ model Messages {
 }
 
 model Group {
-  id       String     @id @default(uuid())
+  id       String         @id @default(uuid())
   name     String
-  users    Users[]
+  profile  String?
   Messages Messages[]
+  Members  GroupMembers[]
+}
+
+model GroupMembers {
+  id      String @id @default(uuid())
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id])
+  userId  String
+  user    Users  @relation(fields: [userId], references: [id])
 }

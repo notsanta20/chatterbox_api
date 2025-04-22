@@ -49,10 +49,13 @@ async function login(req, res) {
       jwt.sign(
         { user: tokenData },
         secret,
-        { expiresIn: "5m" },
+        { expiresIn: "10m" },
         (err, token) => {
           if (err) {
-            res.status(501).json({ error: "Internal server error, try again" });
+            res.status(501).json({
+              error: "Internal server error, try again",
+              auth: req.authorization,
+            });
           }
 
           res.json({
@@ -64,9 +67,9 @@ async function login(req, res) {
       );
     } catch (err) {
       if (err instanceof ZodError) {
-        res.status(401).json({ error: err.errors[0] });
+        res.status(401).json({ error: err.errors[0], auth: req.authorization });
       } else {
-        res.status(401).json({ error: err.message });
+        res.status(401).json({ error: err.message, auth: req.authorization });
       }
     }
   } else {

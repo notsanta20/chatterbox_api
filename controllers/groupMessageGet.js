@@ -9,24 +9,39 @@ async function groupMessageGet(req, res) {
       if (typeof groupId === "undefined") {
         res
           .status(403)
-          .json({ message: "Error in fetching messages, try again" });
+          .json({
+            message: "Error in fetching messages, try again",
+            auth: req.authorization,
+          });
         return;
       }
 
-      const data = await prisma.messages.findMany({
+      const data = await prisma.group.findFirst({
         where: {
-          groupId: groupId,
+          id: groupId,
+        },
+        include: {
+          Messages: true,
         },
       });
 
-      res.json({ message: "Message sent", data: data });
+      res.json({
+        message: "Message sent",
+        data: data,
+        auth: req.authorization,
+      });
     } catch (err) {
-      res.status(501).json({ message: "server error", error: err });
+      res
+        .status(501)
+        .json({ message: "server error", error: err, auth: req.authorization });
     }
   } else {
     res
       .status(403)
-      .json({ error: "Unauthorized entry, login to send message" });
+      .json({
+        error: "Unauthorized entry, login to send message",
+        auth: req.authorization,
+      });
   }
 }
 

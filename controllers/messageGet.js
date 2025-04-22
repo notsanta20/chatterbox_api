@@ -6,6 +6,14 @@ async function messageGet(req, res) {
     const { receiverId } = req.body;
 
     try {
+      if (typeof receiverId === "undefined") {
+        res.status(401).json({
+          error: "Receiver contact error, try again",
+          auth: req.authorization,
+        });
+        return;
+      }
+
       const data = await prisma.messages.findMany({
         where: {
           OR: [
@@ -18,14 +26,21 @@ async function messageGet(req, res) {
           ],
         },
       });
-      res.json({ message: "Message sent", data: data });
+      res.json({
+        message: "Messages fetched",
+        data: data,
+        auth: req.authorization,
+      });
     } catch (err) {
-      res.status(501).json({ message: "server error", error: err });
+      res
+        .status(501)
+        .json({ message: "server error", error: err, auth: req.authorization });
     }
   } else {
-    res
-      .status(403)
-      .json({ error: "Unauthorized entry, login to send message" });
+    res.status(403).json({
+      error: "Unauthorized entry, login to send message",
+      auth: req.authorization,
+    });
   }
 }
 
