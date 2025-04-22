@@ -2,17 +2,15 @@ const { PrismaClient } = require("../prisma/generated/prisma/client");
 const prisma = new PrismaClient();
 
 async function joinGroup(req, res) {
-  let { groupId } = req.body;
+  const { groupId } = req.body;
 
   if (req.authorization) {
     try {
-      if (typeof groupName === "undefined") {
-        res
-          .status(401)
-          .json({
-            error: "Group Id must not be empty",
-            auth: req.authorization,
-          });
+      if (typeof groupId === "undefined") {
+        res.status(401).json({
+          error: "Group Id must not be empty",
+          auth: req.authorization,
+        });
         return;
       }
 
@@ -25,7 +23,7 @@ async function joinGroup(req, res) {
       console.log(data);
 
       res.json({
-        message: "group created successfully",
+        message: "Joined group successfully",
         auth: req.authorization,
       });
     } catch (error) {
@@ -34,12 +32,10 @@ async function joinGroup(req, res) {
         .json({ error: "Internal server error", auth: req.authorization });
     }
   } else {
-    res
-      .status(401)
-      .json({
-        error: "Unauthorized entry, login to join group",
-        auth: req.authorization,
-      });
+    res.status(401).json({
+      error: "Unauthorized entry, login to join group",
+      auth: req.authorization,
+    });
   }
 }
 

@@ -3,7 +3,7 @@ const app = express.Router();
 const groupMessageGet = require("../controllers/groupMessageGet");
 const groupMessagePost = require("../controllers/groupMessagePost");
 const createGroup = require("../controllers/createGroup");
-const joinGroup = require("../controllers/createGroup");
+const joinGroup = require("../controllers/joinGroup");
 
 app.get("/grp-msg", groupMessageGet);
 app.post("/grp-msg", groupMessagePost);

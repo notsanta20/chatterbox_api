@@ -7,12 +7,10 @@ async function groupMessageGet(req, res) {
 
     try {
       if (typeof groupId === "undefined") {
-        res
-          .status(403)
-          .json({
-            message: "Error in fetching messages, try again",
-            auth: req.authorization,
-          });
+        res.status(403).json({
+          message: "Error in fetching messages, try again",
+          auth: req.authorization,
+        });
         return;
       }
 
@@ -25,9 +23,28 @@ async function groupMessageGet(req, res) {
         },
       });
 
+      const membersData = await prisma.groupMembers.findMany({
+        where: {
+          groupId: groupId,
+        },
+        include: {
+          user: true,
+        },
+      });
+
+      const members = membersData.map((m) => {
+        const data = {
+          username: m.user.username,
+          profile: m.user.profile,
+          bio: m.user.bio,
+        };
+        return data;
+      });
+
       res.json({
-        message: "Message sent",
+        message: "Messages fetched",
         data: data,
+        members: members,
         auth: req.authorization,
       });
     } catch (err) {
@@ -36,12 +53,10 @@ async function groupMessageGet(req, res) {
         .json({ message: "server error", error: err, auth: req.authorization });
     }
   } else {
-    res
-      .status(403)
-      .json({
-        error: "Unauthorized entry, login to send message",
-        auth: req.authorization,
-      });
+    res.status(403).json({
+      error: "Unauthorized entry, login to send message",
+      auth: req.authorization,
+    });
   }
 }
 
