@@ -148,6 +148,12 @@ exports.Prisma.GroupMembersScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.ContactsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  contactId: 'contactId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -168,7 +174,8 @@ exports.Prisma.ModelName = {
   Users: 'Users',
   Messages: 'Messages',
   Group: 'Group',
-  GroupMembers: 'GroupMembers'
+  GroupMembers: 'GroupMembers',
+  Contacts: 'Contacts'
 };
 
 /**

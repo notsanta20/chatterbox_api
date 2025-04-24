@@ -18,18 +18,20 @@ model Users {
   senderMessages   Messages[]     @relation("senderId")
   receiverMessages Messages[]     @relation("receiverId")
   Members          GroupMembers[]
+  owner            Contacts[]     @relation("owner")
+  contacts         Contacts[]     @relation("contact")
 }
 
 model Messages {
   id         String   @id @default(uuid())
   message    String?
   imageURL   String?
-  sender     Users    @relation("senderId", fields: [senderId], references: [id])
+  sender     Users    @relation("senderId", fields: [senderId], references: [id], onDelete: Cascade)
   senderId   String
-  receiver   Users?   @relation("receiverId", fields: [receiverId], references: [id])
+  receiver   Users?   @relation("receiverId", fields: [receiverId], references: [id], onDelete: Cascade)
   receiverId String?
   time       DateTime @default(now())
-  group      Group?   @relation(fields: [groupId], references: [id])
+  group      Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId    String?
 }
 
@@ -44,7 +46,15 @@ model Group {
 model GroupMembers {
   id      String @id @default(uuid())
   groupId String
-  group   Group  @relation(fields: [groupId], references: [id])
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
   userId  String
-  user    Users  @relation(fields: [userId], references: [id])
+  user    Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Contacts {
+  id        String @id @default(uuid())
+  userId    String
+  user      Users  @relation("owner", fields: [userId], references: [id], onDelete: Cascade)
+  contactId String
+  contact   Users  @relation("contact", fields: [contactId], references: [id], onDelete: Cascade)
 }
