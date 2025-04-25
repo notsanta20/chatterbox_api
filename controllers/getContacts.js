@@ -2,8 +2,6 @@ const { PrismaClient } = require("../prisma/generated/prisma/client");
 const prisma = new PrismaClient();
 
 async function getContacts(req, res) {
-  const { contactId } = req.body;
-
   if (!req.authorization) {
     res.status(401).json({
       error: "Unauthorized entry, login to see contacts",

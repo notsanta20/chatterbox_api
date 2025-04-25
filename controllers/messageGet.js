@@ -10,7 +10,7 @@ async function messageGet(req, res) {
     return;
   }
 
-  const { receiverId } = req.body;
+  const { receiverId } = req.params;
 
   try {
     if (typeof receiverId === "undefined") {
@@ -33,6 +33,7 @@ async function messageGet(req, res) {
         ],
       },
     });
+
     res.json({
       message: "Messages fetched",
       data: data,
