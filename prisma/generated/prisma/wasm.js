@@ -130,10 +130,11 @@ exports.Prisma.MessagesScalarFieldEnum = {
   id: 'id',
   message: 'message',
   imageURL: 'imageURL',
+  time: 'time',
   senderId: 'senderId',
   receiverId: 'receiverId',
-  time: 'time',
-  groupId: 'groupId'
+  groupId: 'groupId',
+  contactId: 'contactId'
 };
 
 exports.Prisma.GroupScalarFieldEnum = {

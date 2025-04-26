@@ -1336,6 +1336,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ContactsCountOutputType
+   */
+
+  export type ContactsCountOutputType = {
+    Messages: number
+  }
+
+  export type ContactsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Messages?: boolean | ContactsCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContactsCountOutputType without action
+   */
+  export type ContactsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactsCountOutputType
+     */
+    select?: ContactsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContactsCountOutputType without action
+   */
+  export type ContactsCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessagesWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2548,30 +2579,33 @@ export namespace Prisma {
     id: string | null
     message: string | null
     imageURL: string | null
+    time: Date | null
     senderId: string | null
     receiverId: string | null
-    time: Date | null
     groupId: string | null
+    contactId: string | null
   }
 
   export type MessagesMaxAggregateOutputType = {
     id: string | null
     message: string | null
     imageURL: string | null
+    time: Date | null
     senderId: string | null
     receiverId: string | null
-    time: Date | null
     groupId: string | null
+    contactId: string | null
   }
 
   export type MessagesCountAggregateOutputType = {
     id: number
     message: number
     imageURL: number
+    time: number
     senderId: number
     receiverId: number
-    time: number
     groupId: number
+    contactId: number
     _all: number
   }
 
@@ -2580,30 +2614,33 @@ export namespace Prisma {
     id?: true
     message?: true
     imageURL?: true
+    time?: true
     senderId?: true
     receiverId?: true
-    time?: true
     groupId?: true
+    contactId?: true
   }
 
   export type MessagesMaxAggregateInputType = {
     id?: true
     message?: true
     imageURL?: true
+    time?: true
     senderId?: true
     receiverId?: true
-    time?: true
     groupId?: true
+    contactId?: true
   }
 
   export type MessagesCountAggregateInputType = {
     id?: true
     message?: true
     imageURL?: true
+    time?: true
     senderId?: true
     receiverId?: true
-    time?: true
     groupId?: true
+    contactId?: true
     _all?: true
   }
 
@@ -2683,10 +2720,11 @@ export namespace Prisma {
     id: string
     message: string | null
     imageURL: string | null
+    time: Date
     senderId: string
     receiverId: string | null
-    time: Date
     groupId: string | null
+    contactId: string
     _count: MessagesCountAggregateOutputType | null
     _min: MessagesMinAggregateOutputType | null
     _max: MessagesMaxAggregateOutputType | null
@@ -2710,66 +2748,76 @@ export namespace Prisma {
     id?: boolean
     message?: boolean
     imageURL?: boolean
+    time?: boolean
     senderId?: boolean
     receiverId?: boolean
-    time?: boolean
     groupId?: boolean
+    contactId?: boolean
     sender?: boolean | UsersDefaultArgs<ExtArgs>
     receiver?: boolean | Messages$receiverArgs<ExtArgs>
     group?: boolean | Messages$groupArgs<ExtArgs>
+    contact?: boolean | ContactsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["messages"]>
 
   export type MessagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message?: boolean
     imageURL?: boolean
+    time?: boolean
     senderId?: boolean
     receiverId?: boolean
-    time?: boolean
     groupId?: boolean
+    contactId?: boolean
     sender?: boolean | UsersDefaultArgs<ExtArgs>
     receiver?: boolean | Messages$receiverArgs<ExtArgs>
     group?: boolean | Messages$groupArgs<ExtArgs>
+    contact?: boolean | ContactsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["messages"]>
 
   export type MessagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message?: boolean
     imageURL?: boolean
+    time?: boolean
     senderId?: boolean
     receiverId?: boolean
-    time?: boolean
     groupId?: boolean
+    contactId?: boolean
     sender?: boolean | UsersDefaultArgs<ExtArgs>
     receiver?: boolean | Messages$receiverArgs<ExtArgs>
     group?: boolean | Messages$groupArgs<ExtArgs>
+    contact?: boolean | ContactsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["messages"]>
 
   export type MessagesSelectScalar = {
     id?: boolean
     message?: boolean
     imageURL?: boolean
+    time?: boolean
     senderId?: boolean
     receiverId?: boolean
-    time?: boolean
     groupId?: boolean
+    contactId?: boolean
   }
 
-  export type MessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "imageURL" | "senderId" | "receiverId" | "time" | "groupId", ExtArgs["result"]["messages"]>
+  export type MessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "imageURL" | "time" | "senderId" | "receiverId" | "groupId" | "contactId", ExtArgs["result"]["messages"]>
   export type MessagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UsersDefaultArgs<ExtArgs>
     receiver?: boolean | Messages$receiverArgs<ExtArgs>
     group?: boolean | Messages$groupArgs<ExtArgs>
+    contact?: boolean | ContactsDefaultArgs<ExtArgs>
   }
   export type MessagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UsersDefaultArgs<ExtArgs>
     receiver?: boolean | Messages$receiverArgs<ExtArgs>
     group?: boolean | Messages$groupArgs<ExtArgs>
+    contact?: boolean | ContactsDefaultArgs<ExtArgs>
   }
   export type MessagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sender?: boolean | UsersDefaultArgs<ExtArgs>
     receiver?: boolean | Messages$receiverArgs<ExtArgs>
     group?: boolean | Messages$groupArgs<ExtArgs>
+    contact?: boolean | ContactsDefaultArgs<ExtArgs>
   }
 
   export type $MessagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2778,15 +2826,17 @@ export namespace Prisma {
       sender: Prisma.$UsersPayload<ExtArgs>
       receiver: Prisma.$UsersPayload<ExtArgs> | null
       group: Prisma.$GroupPayload<ExtArgs> | null
+      contact: Prisma.$ContactsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       message: string | null
       imageURL: string | null
+      time: Date
       senderId: string
       receiverId: string | null
-      time: Date
       groupId: string | null
+      contactId: string
     }, ExtArgs["result"]["messages"]>
     composites: {}
   }
@@ -3184,6 +3234,7 @@ export namespace Prisma {
     sender<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     receiver<T extends Messages$receiverArgs<ExtArgs> = {}>(args?: Subset<T, Messages$receiverArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     group<T extends Messages$groupArgs<ExtArgs> = {}>(args?: Subset<T, Messages$groupArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    contact<T extends ContactsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContactsDefaultArgs<ExtArgs>>): Prisma__ContactsClient<$Result.GetResult<Prisma.$ContactsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3216,10 +3267,11 @@ export namespace Prisma {
     readonly id: FieldRef<"Messages", 'String'>
     readonly message: FieldRef<"Messages", 'String'>
     readonly imageURL: FieldRef<"Messages", 'String'>
+    readonly time: FieldRef<"Messages", 'DateTime'>
     readonly senderId: FieldRef<"Messages", 'String'>
     readonly receiverId: FieldRef<"Messages", 'String'>
-    readonly time: FieldRef<"Messages", 'DateTime'>
     readonly groupId: FieldRef<"Messages", 'String'>
+    readonly contactId: FieldRef<"Messages", 'String'>
   }
     
 
@@ -5934,6 +5986,8 @@ export namespace Prisma {
     contactId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
     contact?: boolean | UsersDefaultArgs<ExtArgs>
+    Messages?: boolean | Contacts$MessagesArgs<ExtArgs>
+    _count?: boolean | ContactsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contacts"]>
 
   export type ContactsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5962,6 +6016,8 @@ export namespace Prisma {
   export type ContactsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
     contact?: boolean | UsersDefaultArgs<ExtArgs>
+    Messages?: boolean | Contacts$MessagesArgs<ExtArgs>
+    _count?: boolean | ContactsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContactsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -5977,6 +6033,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UsersPayload<ExtArgs>
       contact: Prisma.$UsersPayload<ExtArgs>
+      Messages: Prisma.$MessagesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6378,6 +6435,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     contact<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Messages<T extends Contacts$MessagesArgs<ExtArgs> = {}>(args?: Subset<T, Contacts$MessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6806,6 +6864,30 @@ export namespace Prisma {
   }
 
   /**
+   * Contacts.Messages
+   */
+  export type Contacts$MessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Messages
+     */
+    select?: MessagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Messages
+     */
+    omit?: MessagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessagesInclude<ExtArgs> | null
+    where?: MessagesWhereInput
+    orderBy?: MessagesOrderByWithRelationInput | MessagesOrderByWithRelationInput[]
+    cursor?: MessagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessagesScalarFieldEnum | MessagesScalarFieldEnum[]
+  }
+
+  /**
    * Contacts without action
    */
   export type ContactsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6854,10 +6936,11 @@ export namespace Prisma {
     id: 'id',
     message: 'message',
     imageURL: 'imageURL',
+    time: 'time',
     senderId: 'senderId',
     receiverId: 'receiverId',
-    time: 'time',
-    groupId: 'groupId'
+    groupId: 'groupId',
+    contactId: 'contactId'
   };
 
   export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
@@ -7043,26 +7126,30 @@ export namespace Prisma {
     id?: StringFilter<"Messages"> | string
     message?: StringNullableFilter<"Messages"> | string | null
     imageURL?: StringNullableFilter<"Messages"> | string | null
+    time?: DateTimeFilter<"Messages"> | Date | string
     senderId?: StringFilter<"Messages"> | string
     receiverId?: StringNullableFilter<"Messages"> | string | null
-    time?: DateTimeFilter<"Messages"> | Date | string
     groupId?: StringNullableFilter<"Messages"> | string | null
+    contactId?: StringFilter<"Messages"> | string
     sender?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     receiver?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
     group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
+    contact?: XOR<ContactsScalarRelationFilter, ContactsWhereInput>
   }
 
   export type MessagesOrderByWithRelationInput = {
     id?: SortOrder
     message?: SortOrderInput | SortOrder
     imageURL?: SortOrderInput | SortOrder
+    time?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrderInput | SortOrder
-    time?: SortOrder
     groupId?: SortOrderInput | SortOrder
+    contactId?: SortOrder
     sender?: UsersOrderByWithRelationInput
     receiver?: UsersOrderByWithRelationInput
     group?: GroupOrderByWithRelationInput
+    contact?: ContactsOrderByWithRelationInput
   }
 
   export type MessagesWhereUniqueInput = Prisma.AtLeast<{
@@ -7072,23 +7159,26 @@ export namespace Prisma {
     NOT?: MessagesWhereInput | MessagesWhereInput[]
     message?: StringNullableFilter<"Messages"> | string | null
     imageURL?: StringNullableFilter<"Messages"> | string | null
+    time?: DateTimeFilter<"Messages"> | Date | string
     senderId?: StringFilter<"Messages"> | string
     receiverId?: StringNullableFilter<"Messages"> | string | null
-    time?: DateTimeFilter<"Messages"> | Date | string
     groupId?: StringNullableFilter<"Messages"> | string | null
+    contactId?: StringFilter<"Messages"> | string
     sender?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     receiver?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
     group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
+    contact?: XOR<ContactsScalarRelationFilter, ContactsWhereInput>
   }, "id">
 
   export type MessagesOrderByWithAggregationInput = {
     id?: SortOrder
     message?: SortOrderInput | SortOrder
     imageURL?: SortOrderInput | SortOrder
+    time?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrderInput | SortOrder
-    time?: SortOrder
     groupId?: SortOrderInput | SortOrder
+    contactId?: SortOrder
     _count?: MessagesCountOrderByAggregateInput
     _max?: MessagesMaxOrderByAggregateInput
     _min?: MessagesMinOrderByAggregateInput
@@ -7101,10 +7191,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Messages"> | string
     message?: StringNullableWithAggregatesFilter<"Messages"> | string | null
     imageURL?: StringNullableWithAggregatesFilter<"Messages"> | string | null
+    time?: DateTimeWithAggregatesFilter<"Messages"> | Date | string
     senderId?: StringWithAggregatesFilter<"Messages"> | string
     receiverId?: StringNullableWithAggregatesFilter<"Messages"> | string | null
-    time?: DateTimeWithAggregatesFilter<"Messages"> | Date | string
     groupId?: StringNullableWithAggregatesFilter<"Messages"> | string | null
+    contactId?: StringWithAggregatesFilter<"Messages"> | string
   }
 
   export type GroupWhereInput = {
@@ -7212,6 +7303,7 @@ export namespace Prisma {
     contactId?: StringFilter<"Contacts"> | string
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     contact?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    Messages?: MessagesListRelationFilter
   }
 
   export type ContactsOrderByWithRelationInput = {
@@ -7220,6 +7312,7 @@ export namespace Prisma {
     contactId?: SortOrder
     user?: UsersOrderByWithRelationInput
     contact?: UsersOrderByWithRelationInput
+    Messages?: MessagesOrderByRelationAggregateInput
   }
 
   export type ContactsWhereUniqueInput = Prisma.AtLeast<{
@@ -7231,6 +7324,7 @@ export namespace Prisma {
     contactId?: StringFilter<"Contacts"> | string
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
     contact?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    Messages?: MessagesListRelationFilter
   }, "id">
 
   export type ContactsOrderByWithAggregationInput = {
@@ -7342,16 +7436,18 @@ export namespace Prisma {
     sender: UsersCreateNestedOneWithoutSenderMessagesInput
     receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
     group?: GroupCreateNestedOneWithoutMessagesInput
+    contact: ContactsCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
+    time?: Date | string
     senderId: string
     receiverId?: string | null
-    time?: Date | string
     groupId?: string | null
+    contactId: string
   }
 
   export type MessagesUpdateInput = {
@@ -7362,26 +7458,29 @@ export namespace Prisma {
     sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
     receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
     group?: GroupUpdateOneWithoutMessagesNestedInput
+    contact?: ContactsUpdateOneRequiredWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: NullableStringFieldUpdateOperationsInput | string | null
-    time?: DateTimeFieldUpdateOperationsInput | Date | string
     groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesCreateManyInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
+    time?: Date | string
     senderId: string
     receiverId?: string | null
-    time?: Date | string
     groupId?: string | null
+    contactId: string
   }
 
   export type MessagesUpdateManyMutationInput = {
@@ -7395,10 +7494,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: NullableStringFieldUpdateOperationsInput | string | null
-    time?: DateTimeFieldUpdateOperationsInput | Date | string
     groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type GroupCreateInput = {
@@ -7495,24 +7595,28 @@ export namespace Prisma {
     id?: string
     user: UsersCreateNestedOneWithoutOwnerInput
     contact: UsersCreateNestedOneWithoutContactsInput
+    Messages?: MessagesCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUncheckedCreateInput = {
     id?: string
     userId: string
     contactId: string
+    Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
     contact?: UsersUpdateOneRequiredWithoutContactsNestedInput
+    Messages?: MessagesUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     contactId?: StringFieldUpdateOperationsInput | string
+    Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsCreateManyInput = {
@@ -7685,34 +7789,42 @@ export namespace Prisma {
     isNot?: GroupWhereInput | null
   }
 
+  export type ContactsScalarRelationFilter = {
+    is?: ContactsWhereInput
+    isNot?: ContactsWhereInput
+  }
+
   export type MessagesCountOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
     imageURL?: SortOrder
+    time?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrder
-    time?: SortOrder
     groupId?: SortOrder
+    contactId?: SortOrder
   }
 
   export type MessagesMaxOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
     imageURL?: SortOrder
+    time?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrder
-    time?: SortOrder
     groupId?: SortOrder
+    contactId?: SortOrder
   }
 
   export type MessagesMinOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
     imageURL?: SortOrder
+    time?: SortOrder
     senderId?: SortOrder
     receiverId?: SortOrder
-    time?: SortOrder
     groupId?: SortOrder
+    contactId?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8024,6 +8136,12 @@ export namespace Prisma {
     connect?: GroupWhereUniqueInput
   }
 
+  export type ContactsCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<ContactsCreateWithoutMessagesInput, ContactsUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ContactsCreateOrConnectWithoutMessagesInput
+    connect?: ContactsWhereUniqueInput
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -8054,6 +8172,14 @@ export namespace Prisma {
     delete?: GroupWhereInput | boolean
     connect?: GroupWhereUniqueInput
     update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutMessagesInput, GroupUpdateWithoutMessagesInput>, GroupUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ContactsUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<ContactsCreateWithoutMessagesInput, ContactsUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ContactsCreateOrConnectWithoutMessagesInput
+    upsert?: ContactsUpsertWithoutMessagesInput
+    connect?: ContactsWhereUniqueInput
+    update?: XOR<XOR<ContactsUpdateToOneWithWhereWithoutMessagesInput, ContactsUpdateWithoutMessagesInput>, ContactsUncheckedUpdateWithoutMessagesInput>
   }
 
   export type MessagesCreateNestedManyWithoutGroupInput = {
@@ -8180,6 +8306,20 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput
   }
 
+  export type MessagesCreateNestedManyWithoutContactInput = {
+    create?: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput> | MessagesCreateWithoutContactInput[] | MessagesUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutContactInput | MessagesCreateOrConnectWithoutContactInput[]
+    createMany?: MessagesCreateManyContactInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
+  export type MessagesUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput> | MessagesCreateWithoutContactInput[] | MessagesUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutContactInput | MessagesCreateOrConnectWithoutContactInput[]
+    createMany?: MessagesCreateManyContactInputEnvelope
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+  }
+
   export type UsersUpdateOneRequiredWithoutOwnerNestedInput = {
     create?: XOR<UsersCreateWithoutOwnerInput, UsersUncheckedCreateWithoutOwnerInput>
     connectOrCreate?: UsersCreateOrConnectWithoutOwnerInput
@@ -8194,6 +8334,34 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutContactsInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutContactsInput, UsersUpdateWithoutContactsInput>, UsersUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type MessagesUpdateManyWithoutContactNestedInput = {
+    create?: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput> | MessagesCreateWithoutContactInput[] | MessagesUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutContactInput | MessagesCreateOrConnectWithoutContactInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutContactInput | MessagesUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: MessagesCreateManyContactInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutContactInput | MessagesUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutContactInput | MessagesUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput> | MessagesCreateWithoutContactInput[] | MessagesUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: MessagesCreateOrConnectWithoutContactInput | MessagesCreateOrConnectWithoutContactInput[]
+    upsert?: MessagesUpsertWithWhereUniqueWithoutContactInput | MessagesUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: MessagesCreateManyContactInputEnvelope
+    set?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    disconnect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    delete?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    connect?: MessagesWhereUniqueInput | MessagesWhereUniqueInput[]
+    update?: MessagesUpdateWithWhereUniqueWithoutContactInput | MessagesUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: MessagesUpdateManyWithWhereWithoutContactInput | MessagesUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: MessagesScalarWhereInput | MessagesScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8312,15 +8480,17 @@ export namespace Prisma {
     time?: Date | string
     receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
     group?: GroupCreateNestedOneWithoutMessagesInput
+    contact: ContactsCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateWithoutSenderInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
-    receiverId?: string | null
     time?: Date | string
+    receiverId?: string | null
     groupId?: string | null
+    contactId: string
   }
 
   export type MessagesCreateOrConnectWithoutSenderInput = {
@@ -8340,15 +8510,17 @@ export namespace Prisma {
     time?: Date | string
     sender: UsersCreateNestedOneWithoutSenderMessagesInput
     group?: GroupCreateNestedOneWithoutMessagesInput
+    contact: ContactsCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateWithoutReceiverInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
-    senderId: string
     time?: Date | string
+    senderId: string
     groupId?: string | null
+    contactId: string
   }
 
   export type MessagesCreateOrConnectWithoutReceiverInput = {
@@ -8384,11 +8556,13 @@ export namespace Prisma {
   export type ContactsCreateWithoutUserInput = {
     id?: string
     contact: UsersCreateNestedOneWithoutContactsInput
+    Messages?: MessagesCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUncheckedCreateWithoutUserInput = {
     id?: string
     contactId: string
+    Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactsCreateOrConnectWithoutUserInput = {
@@ -8404,11 +8578,13 @@ export namespace Prisma {
   export type ContactsCreateWithoutContactInput = {
     id?: string
     user: UsersCreateNestedOneWithoutOwnerInput
+    Messages?: MessagesCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUncheckedCreateWithoutContactInput = {
     id?: string
     userId: string
+    Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactsCreateOrConnectWithoutContactInput = {
@@ -8444,10 +8620,11 @@ export namespace Prisma {
     id?: StringFilter<"Messages"> | string
     message?: StringNullableFilter<"Messages"> | string | null
     imageURL?: StringNullableFilter<"Messages"> | string | null
+    time?: DateTimeFilter<"Messages"> | Date | string
     senderId?: StringFilter<"Messages"> | string
     receiverId?: StringNullableFilter<"Messages"> | string | null
-    time?: DateTimeFilter<"Messages"> | Date | string
     groupId?: StringNullableFilter<"Messages"> | string | null
+    contactId?: StringFilter<"Messages"> | string
   }
 
   export type MessagesUpsertWithWhereUniqueWithoutReceiverInput = {
@@ -8613,6 +8790,23 @@ export namespace Prisma {
     create: XOR<GroupCreateWithoutMessagesInput, GroupUncheckedCreateWithoutMessagesInput>
   }
 
+  export type ContactsCreateWithoutMessagesInput = {
+    id?: string
+    user: UsersCreateNestedOneWithoutOwnerInput
+    contact: UsersCreateNestedOneWithoutContactsInput
+  }
+
+  export type ContactsUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    userId: string
+    contactId: string
+  }
+
+  export type ContactsCreateOrConnectWithoutMessagesInput = {
+    where: ContactsWhereUniqueInput
+    create: XOR<ContactsCreateWithoutMessagesInput, ContactsUncheckedCreateWithoutMessagesInput>
+  }
+
   export type UsersUpsertWithoutSenderMessagesInput = {
     update: XOR<UsersUpdateWithoutSenderMessagesInput, UsersUncheckedUpdateWithoutSenderMessagesInput>
     create: XOR<UsersCreateWithoutSenderMessagesInput, UsersUncheckedCreateWithoutSenderMessagesInput>
@@ -8712,6 +8906,29 @@ export namespace Prisma {
     Members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
   }
 
+  export type ContactsUpsertWithoutMessagesInput = {
+    update: XOR<ContactsUpdateWithoutMessagesInput, ContactsUncheckedUpdateWithoutMessagesInput>
+    create: XOR<ContactsCreateWithoutMessagesInput, ContactsUncheckedCreateWithoutMessagesInput>
+    where?: ContactsWhereInput
+  }
+
+  export type ContactsUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: ContactsWhereInput
+    data: XOR<ContactsUpdateWithoutMessagesInput, ContactsUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ContactsUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
+    contact?: UsersUpdateOneRequiredWithoutContactsNestedInput
+  }
+
+  export type ContactsUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type MessagesCreateWithoutGroupInput = {
     id?: string
     message?: string | null
@@ -8719,15 +8936,17 @@ export namespace Prisma {
     time?: Date | string
     sender: UsersCreateNestedOneWithoutSenderMessagesInput
     receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
+    contact: ContactsCreateNestedOneWithoutMessagesInput
   }
 
   export type MessagesUncheckedCreateWithoutGroupInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
+    time?: Date | string
     senderId: string
     receiverId?: string | null
-    time?: Date | string
+    contactId: string
   }
 
   export type MessagesCreateOrConnectWithoutGroupInput = {
@@ -8966,6 +9185,36 @@ export namespace Prisma {
     create: XOR<UsersCreateWithoutContactsInput, UsersUncheckedCreateWithoutContactsInput>
   }
 
+  export type MessagesCreateWithoutContactInput = {
+    id?: string
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
+    sender: UsersCreateNestedOneWithoutSenderMessagesInput
+    receiver?: UsersCreateNestedOneWithoutReceiverMessagesInput
+    group?: GroupCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessagesUncheckedCreateWithoutContactInput = {
+    id?: string
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
+    senderId: string
+    receiverId?: string | null
+    groupId?: string | null
+  }
+
+  export type MessagesCreateOrConnectWithoutContactInput = {
+    where: MessagesWhereUniqueInput
+    create: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput>
+  }
+
+  export type MessagesCreateManyContactInputEnvelope = {
+    data: MessagesCreateManyContactInput | MessagesCreateManyContactInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UsersUpsertWithoutOwnerInput = {
     update: XOR<UsersUpdateWithoutOwnerInput, UsersUncheckedUpdateWithoutOwnerInput>
     create: XOR<UsersCreateWithoutOwnerInput, UsersUncheckedCreateWithoutOwnerInput>
@@ -9040,22 +9289,40 @@ export namespace Prisma {
     owner?: ContactsUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type MessagesUpsertWithWhereUniqueWithoutContactInput = {
+    where: MessagesWhereUniqueInput
+    update: XOR<MessagesUpdateWithoutContactInput, MessagesUncheckedUpdateWithoutContactInput>
+    create: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput>
+  }
+
+  export type MessagesUpdateWithWhereUniqueWithoutContactInput = {
+    where: MessagesWhereUniqueInput
+    data: XOR<MessagesUpdateWithoutContactInput, MessagesUncheckedUpdateWithoutContactInput>
+  }
+
+  export type MessagesUpdateManyWithWhereWithoutContactInput = {
+    where: MessagesScalarWhereInput
+    data: XOR<MessagesUpdateManyMutationInput, MessagesUncheckedUpdateManyWithoutContactInput>
+  }
+
   export type MessagesCreateManySenderInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
-    receiverId?: string | null
     time?: Date | string
+    receiverId?: string | null
     groupId?: string | null
+    contactId: string
   }
 
   export type MessagesCreateManyReceiverInput = {
     id?: string
     message?: string | null
     imageURL?: string | null
-    senderId: string
     time?: Date | string
+    senderId: string
     groupId?: string | null
+    contactId: string
   }
 
   export type GroupMembersCreateManyUserInput = {
@@ -9080,24 +9347,27 @@ export namespace Prisma {
     time?: DateTimeFieldUpdateOperationsInput | Date | string
     receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
     group?: GroupUpdateOneWithoutMessagesNestedInput
+    contact?: ContactsUpdateOneRequiredWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
-    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
     time?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
     groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesUncheckedUpdateManyWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
-    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
     time?: DateTimeFieldUpdateOperationsInput | Date | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
     groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesUpdateWithoutReceiverInput = {
@@ -9107,24 +9377,27 @@ export namespace Prisma {
     time?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
     group?: GroupUpdateOneWithoutMessagesNestedInput
+    contact?: ContactsUpdateOneRequiredWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
-    senderId?: StringFieldUpdateOperationsInput | string
     time?: DateTimeFieldUpdateOperationsInput | Date | string
+    senderId?: StringFieldUpdateOperationsInput | string
     groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesUncheckedUpdateManyWithoutReceiverInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
-    senderId?: StringFieldUpdateOperationsInput | string
     time?: DateTimeFieldUpdateOperationsInput | Date | string
+    senderId?: StringFieldUpdateOperationsInput | string
     groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type GroupMembersUpdateWithoutUserInput = {
@@ -9145,11 +9418,13 @@ export namespace Prisma {
   export type ContactsUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     contact?: UsersUpdateOneRequiredWithoutContactsNestedInput
+    Messages?: MessagesUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     contactId?: StringFieldUpdateOperationsInput | string
+    Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateManyWithoutUserInput = {
@@ -9160,11 +9435,13 @@ export namespace Prisma {
   export type ContactsUpdateWithoutContactInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
+    Messages?: MessagesUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateWithoutContactInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateManyWithoutContactInput = {
@@ -9176,9 +9453,10 @@ export namespace Prisma {
     id?: string
     message?: string | null
     imageURL?: string | null
+    time?: Date | string
     senderId: string
     receiverId?: string | null
-    time?: Date | string
+    contactId: string
   }
 
   export type GroupMembersCreateManyGroupInput = {
@@ -9193,24 +9471,27 @@ export namespace Prisma {
     time?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
     receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
+    contact?: ContactsUpdateOneRequiredWithoutMessagesNestedInput
   }
 
   export type MessagesUncheckedUpdateWithoutGroupInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: NullableStringFieldUpdateOperationsInput | string | null
-    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesUncheckedUpdateManyWithoutGroupInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: NullableStringFieldUpdateOperationsInput | string | null
     imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
     senderId?: StringFieldUpdateOperationsInput | string
     receiverId?: NullableStringFieldUpdateOperationsInput | string | null
-    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type GroupMembersUpdateWithoutGroupInput = {
@@ -9226,6 +9507,46 @@ export namespace Prisma {
   export type GroupMembersUncheckedUpdateManyWithoutGroupInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessagesCreateManyContactInput = {
+    id?: string
+    message?: string | null
+    imageURL?: string | null
+    time?: Date | string
+    senderId: string
+    receiverId?: string | null
+    groupId?: string | null
+  }
+
+  export type MessagesUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UsersUpdateOneRequiredWithoutSenderMessagesNestedInput
+    receiver?: UsersUpdateOneWithoutReceiverMessagesNestedInput
+    group?: GroupUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessagesUncheckedUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessagesUncheckedUpdateManyWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    imageURL?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: DateTimeFieldUpdateOperationsInput | Date | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    receiverId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

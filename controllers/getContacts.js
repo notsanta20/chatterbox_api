@@ -16,16 +16,20 @@ async function getContacts(req, res) {
         userId: req.user.id,
       },
       include: {
+        Messages: true,
         contact: true,
       },
     });
 
     const filteredData = data.map((d) => {
       return {
-        id: d.contactId,
-        username: d.contact.username,
-        profile: d.contact.profile,
-        bio: d.contact.bio,
+        ...d,
+        contact: {
+          id: d.contact.id,
+          username: d.contact.username,
+          profile: d.contact.profile,
+          bio: d.contact.bio,
+        },
       };
     });
 

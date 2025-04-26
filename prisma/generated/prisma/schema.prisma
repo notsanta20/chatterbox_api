@@ -26,13 +26,15 @@ model Messages {
   id         String   @id @default(uuid())
   message    String?
   imageURL   String?
+  time       DateTime @default(now())
   sender     Users    @relation("senderId", fields: [senderId], references: [id], onDelete: Cascade)
   senderId   String
   receiver   Users?   @relation("receiverId", fields: [receiverId], references: [id], onDelete: Cascade)
   receiverId String?
-  time       DateTime @default(now())
   group      Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId    String?
+  contact    Contacts @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId  String
 }
 
 model Group {
@@ -52,9 +54,10 @@ model GroupMembers {
 }
 
 model Contacts {
-  id        String @id @default(uuid())
+  id        String     @id @default(uuid())
   userId    String
-  user      Users  @relation("owner", fields: [userId], references: [id], onDelete: Cascade)
+  user      Users      @relation("owner", fields: [userId], references: [id], onDelete: Cascade)
   contactId String
-  contact   Users  @relation("contact", fields: [contactId], references: [id], onDelete: Cascade)
+  contact   Users      @relation("contact", fields: [contactId], references: [id], onDelete: Cascade)
+  Messages  Messages[]
 }

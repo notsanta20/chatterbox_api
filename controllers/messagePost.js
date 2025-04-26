@@ -28,12 +28,27 @@ async function messagePost(req, res) {
       return;
     }
 
+    const contactId = await prisma.contacts.findFirst({
+      where: {
+        userId: req.user.id,
+        contactId: receiverId,
+      },
+    });
+    if (!contactId) {
+      res.status(403).json({
+        message: "Add contact before sending message",
+        auth: req.authorization,
+      });
+      return;
+    }
+
     const data = await prisma.messages.create({
       data: {
         message: message,
         imageURL: imageURL,
         senderId: req.user.id,
         receiverId: receiverId,
+        contactId: contactId.id,
       },
     });
     console.log(data);

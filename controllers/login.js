@@ -53,25 +53,20 @@ async function login(req, res) {
     };
     const secret = process.env.ACCESS_TOKEN_SECRET;
 
-    jwt.sign(
-      { user: tokenData },
-      secret,
-      { expiresIn: "10m" },
-      (err, token) => {
-        if (err) {
-          res.status(501).json({
-            error: "Internal server error, try again",
-            auth: req.authorization,
-          });
-        }
-
-        res.json({
-          message: `Logged in Successfully`,
+    jwt.sign({ user: tokenData }, secret, { expiresIn: "1h" }, (err, token) => {
+      if (err) {
+        res.status(501).json({
+          error: "Internal server error, try again",
           auth: req.authorization,
-          token: token,
         });
       }
-    );
+
+      res.json({
+        message: `Logged in Successfully`,
+        auth: req.authorization,
+        token: token,
+      });
+    });
   } catch (err) {
     if (err instanceof ZodError) {
       res.status(401).json({ error: err.errors[0], auth: req.authorization });
