@@ -18,19 +18,24 @@ async function getContacts(req, res) {
       include: {
         Messages: true,
         contact: true,
+        group: true,
       },
     });
 
     const filteredData = data.map((d) => {
-      return {
-        ...d,
-        contact: {
-          id: d.contact.id,
-          username: d.contact.username,
-          profile: d.contact.profile,
-          bio: d.contact.bio,
-        },
-      };
+      if (d.contact) {
+        return {
+          ...d,
+          contact: {
+            id: d.contact.id,
+            username: d.contact.username,
+            profile: d.contact.profile,
+            bio: d.contact.bio,
+          },
+        };
+      } else {
+        return d;
+      }
     });
 
     res.json({
@@ -39,6 +44,8 @@ async function getContacts(req, res) {
       data: filteredData,
     });
   } catch (error) {
+    console.log(error);
+
     res.status(501).json({
       error: "Internal server error, try again",
       auth: req.authorization,

@@ -21,6 +21,15 @@ async function messageGet(req, res) {
       return;
     }
 
+    if (receiverId === "Initial") {
+      res.json({
+        message: "Messages fetched",
+        data: null,
+        auth: req.authorization,
+      });
+      return;
+    }
+
     const data = await prisma.messages.findMany({
       where: {
         OR: [

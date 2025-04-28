@@ -1302,11 +1302,13 @@ export namespace Prisma {
   export type GroupCountOutputType = {
     Messages: number
     Members: number
+    Contacts: number
   }
 
   export type GroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Messages?: boolean | GroupCountOutputTypeCountMessagesArgs
     Members?: boolean | GroupCountOutputTypeCountMembersArgs
+    Contacts?: boolean | GroupCountOutputTypeCountContactsArgs
   }
 
   // Custom InputTypes
@@ -1332,6 +1334,13 @@ export namespace Prisma {
    */
   export type GroupCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupMembersWhereInput
+  }
+
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactsWhereInput
   }
 
 
@@ -3874,6 +3883,7 @@ export namespace Prisma {
     profile?: boolean
     Messages?: boolean | Group$MessagesArgs<ExtArgs>
     Members?: boolean | Group$MembersArgs<ExtArgs>
+    Contacts?: boolean | Group$ContactsArgs<ExtArgs>
     _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["group"]>
 
@@ -3899,6 +3909,7 @@ export namespace Prisma {
   export type GroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Messages?: boolean | Group$MessagesArgs<ExtArgs>
     Members?: boolean | Group$MembersArgs<ExtArgs>
+    Contacts?: boolean | Group$ContactsArgs<ExtArgs>
     _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3909,6 +3920,7 @@ export namespace Prisma {
     objects: {
       Messages: Prisma.$MessagesPayload<ExtArgs>[]
       Members: Prisma.$GroupMembersPayload<ExtArgs>[]
+      Contacts: Prisma.$ContactsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4310,6 +4322,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Messages<T extends Group$MessagesArgs<ExtArgs> = {}>(args?: Subset<T, Group$MessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Members<T extends Group$MembersArgs<ExtArgs> = {}>(args?: Subset<T, Group$MembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Contacts<T extends Group$ContactsArgs<ExtArgs> = {}>(args?: Subset<T, Group$ContactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4775,6 +4788,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * Group.Contacts
+   */
+  export type Group$ContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contacts
+     */
+    select?: ContactsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contacts
+     */
+    omit?: ContactsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactsInclude<ExtArgs> | null
+    where?: ContactsWhereInput
+    orderBy?: ContactsOrderByWithRelationInput | ContactsOrderByWithRelationInput[]
+    cursor?: ContactsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactsScalarFieldEnum | ContactsScalarFieldEnum[]
   }
 
   /**
@@ -5850,18 +5887,21 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     contactId: string | null
+    groupId: string | null
   }
 
   export type ContactsMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     contactId: string | null
+    groupId: string | null
   }
 
   export type ContactsCountAggregateOutputType = {
     id: number
     userId: number
     contactId: number
+    groupId: number
     _all: number
   }
 
@@ -5870,18 +5910,21 @@ export namespace Prisma {
     id?: true
     userId?: true
     contactId?: true
+    groupId?: true
   }
 
   export type ContactsMaxAggregateInputType = {
     id?: true
     userId?: true
     contactId?: true
+    groupId?: true
   }
 
   export type ContactsCountAggregateInputType = {
     id?: true
     userId?: true
     contactId?: true
+    groupId?: true
     _all?: true
   }
 
@@ -5960,7 +6003,8 @@ export namespace Prisma {
   export type ContactsGroupByOutputType = {
     id: string
     userId: string
-    contactId: string
+    contactId: string | null
+    groupId: string | null
     _count: ContactsCountAggregateOutputType | null
     _min: ContactsMinAggregateOutputType | null
     _max: ContactsMaxAggregateOutputType | null
@@ -5984,8 +6028,10 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     contactId?: boolean
+    groupId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
-    contact?: boolean | UsersDefaultArgs<ExtArgs>
+    contact?: boolean | Contacts$contactArgs<ExtArgs>
+    group?: boolean | Contacts$groupArgs<ExtArgs>
     Messages?: boolean | Contacts$MessagesArgs<ExtArgs>
     _count?: boolean | ContactsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contacts"]>
@@ -5994,51 +6040,61 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     contactId?: boolean
+    groupId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
-    contact?: boolean | UsersDefaultArgs<ExtArgs>
+    contact?: boolean | Contacts$contactArgs<ExtArgs>
+    group?: boolean | Contacts$groupArgs<ExtArgs>
   }, ExtArgs["result"]["contacts"]>
 
   export type ContactsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     contactId?: boolean
+    groupId?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
-    contact?: boolean | UsersDefaultArgs<ExtArgs>
+    contact?: boolean | Contacts$contactArgs<ExtArgs>
+    group?: boolean | Contacts$groupArgs<ExtArgs>
   }, ExtArgs["result"]["contacts"]>
 
   export type ContactsSelectScalar = {
     id?: boolean
     userId?: boolean
     contactId?: boolean
+    groupId?: boolean
   }
 
-  export type ContactsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "contactId", ExtArgs["result"]["contacts"]>
+  export type ContactsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "contactId" | "groupId", ExtArgs["result"]["contacts"]>
   export type ContactsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
-    contact?: boolean | UsersDefaultArgs<ExtArgs>
+    contact?: boolean | Contacts$contactArgs<ExtArgs>
+    group?: boolean | Contacts$groupArgs<ExtArgs>
     Messages?: boolean | Contacts$MessagesArgs<ExtArgs>
     _count?: boolean | ContactsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContactsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
-    contact?: boolean | UsersDefaultArgs<ExtArgs>
+    contact?: boolean | Contacts$contactArgs<ExtArgs>
+    group?: boolean | Contacts$groupArgs<ExtArgs>
   }
   export type ContactsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
-    contact?: boolean | UsersDefaultArgs<ExtArgs>
+    contact?: boolean | Contacts$contactArgs<ExtArgs>
+    group?: boolean | Contacts$groupArgs<ExtArgs>
   }
 
   export type $ContactsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Contacts"
     objects: {
       user: Prisma.$UsersPayload<ExtArgs>
-      contact: Prisma.$UsersPayload<ExtArgs>
+      contact: Prisma.$UsersPayload<ExtArgs> | null
+      group: Prisma.$GroupPayload<ExtArgs> | null
       Messages: Prisma.$MessagesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      contactId: string
+      contactId: string | null
+      groupId: string | null
     }, ExtArgs["result"]["contacts"]>
     composites: {}
   }
@@ -6434,7 +6490,8 @@ export namespace Prisma {
   export interface Prisma__ContactsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    contact<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    contact<T extends Contacts$contactArgs<ExtArgs> = {}>(args?: Subset<T, Contacts$contactArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    group<T extends Contacts$groupArgs<ExtArgs> = {}>(args?: Subset<T, Contacts$groupArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Messages<T extends Contacts$MessagesArgs<ExtArgs> = {}>(args?: Subset<T, Contacts$MessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6468,6 +6525,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Contacts", 'String'>
     readonly userId: FieldRef<"Contacts", 'String'>
     readonly contactId: FieldRef<"Contacts", 'String'>
+    readonly groupId: FieldRef<"Contacts", 'String'>
   }
     
 
@@ -6864,6 +6922,44 @@ export namespace Prisma {
   }
 
   /**
+   * Contacts.contact
+   */
+  export type Contacts$contactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Users
+     */
+    select?: UsersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Users
+     */
+    omit?: UsersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    where?: UsersWhereInput
+  }
+
+  /**
+   * Contacts.group
+   */
+  export type Contacts$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    where?: GroupWhereInput
+  }
+
+  /**
    * Contacts.Messages
    */
   export type Contacts$MessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6967,7 +7063,8 @@ export namespace Prisma {
   export const ContactsScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    contactId: 'contactId'
+    contactId: 'contactId',
+    groupId: 'groupId'
   };
 
   export type ContactsScalarFieldEnum = (typeof ContactsScalarFieldEnum)[keyof typeof ContactsScalarFieldEnum]
@@ -7207,6 +7304,7 @@ export namespace Prisma {
     profile?: StringNullableFilter<"Group"> | string | null
     Messages?: MessagesListRelationFilter
     Members?: GroupMembersListRelationFilter
+    Contacts?: ContactsListRelationFilter
   }
 
   export type GroupOrderByWithRelationInput = {
@@ -7215,6 +7313,7 @@ export namespace Prisma {
     profile?: SortOrderInput | SortOrder
     Messages?: MessagesOrderByRelationAggregateInput
     Members?: GroupMembersOrderByRelationAggregateInput
+    Contacts?: ContactsOrderByRelationAggregateInput
   }
 
   export type GroupWhereUniqueInput = Prisma.AtLeast<{
@@ -7226,6 +7325,7 @@ export namespace Prisma {
     profile?: StringNullableFilter<"Group"> | string | null
     Messages?: MessagesListRelationFilter
     Members?: GroupMembersListRelationFilter
+    Contacts?: ContactsListRelationFilter
   }, "id">
 
   export type GroupOrderByWithAggregationInput = {
@@ -7300,18 +7400,22 @@ export namespace Prisma {
     NOT?: ContactsWhereInput | ContactsWhereInput[]
     id?: StringFilter<"Contacts"> | string
     userId?: StringFilter<"Contacts"> | string
-    contactId?: StringFilter<"Contacts"> | string
+    contactId?: StringNullableFilter<"Contacts"> | string | null
+    groupId?: StringNullableFilter<"Contacts"> | string | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
-    contact?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    contact?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
+    group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
     Messages?: MessagesListRelationFilter
   }
 
   export type ContactsOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    contactId?: SortOrder
+    contactId?: SortOrderInput | SortOrder
+    groupId?: SortOrderInput | SortOrder
     user?: UsersOrderByWithRelationInput
     contact?: UsersOrderByWithRelationInput
+    group?: GroupOrderByWithRelationInput
     Messages?: MessagesOrderByRelationAggregateInput
   }
 
@@ -7321,16 +7425,19 @@ export namespace Prisma {
     OR?: ContactsWhereInput[]
     NOT?: ContactsWhereInput | ContactsWhereInput[]
     userId?: StringFilter<"Contacts"> | string
-    contactId?: StringFilter<"Contacts"> | string
+    contactId?: StringNullableFilter<"Contacts"> | string | null
+    groupId?: StringNullableFilter<"Contacts"> | string | null
     user?: XOR<UsersScalarRelationFilter, UsersWhereInput>
-    contact?: XOR<UsersScalarRelationFilter, UsersWhereInput>
+    contact?: XOR<UsersNullableScalarRelationFilter, UsersWhereInput> | null
+    group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
     Messages?: MessagesListRelationFilter
   }, "id">
 
   export type ContactsOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    contactId?: SortOrder
+    contactId?: SortOrderInput | SortOrder
+    groupId?: SortOrderInput | SortOrder
     _count?: ContactsCountOrderByAggregateInput
     _max?: ContactsMaxOrderByAggregateInput
     _min?: ContactsMinOrderByAggregateInput
@@ -7342,7 +7449,8 @@ export namespace Prisma {
     NOT?: ContactsScalarWhereWithAggregatesInput | ContactsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Contacts"> | string
     userId?: StringWithAggregatesFilter<"Contacts"> | string
-    contactId?: StringWithAggregatesFilter<"Contacts"> | string
+    contactId?: StringNullableWithAggregatesFilter<"Contacts"> | string | null
+    groupId?: StringNullableWithAggregatesFilter<"Contacts"> | string | null
   }
 
   export type UsersCreateInput = {
@@ -7507,6 +7615,7 @@ export namespace Prisma {
     profile?: string | null
     Messages?: MessagesCreateNestedManyWithoutGroupInput
     Members?: GroupMembersCreateNestedManyWithoutGroupInput
+    Contacts?: ContactsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateInput = {
@@ -7515,6 +7624,7 @@ export namespace Prisma {
     profile?: string | null
     Messages?: MessagesUncheckedCreateNestedManyWithoutGroupInput
     Members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    Contacts?: ContactsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUpdateInput = {
@@ -7523,6 +7633,7 @@ export namespace Prisma {
     profile?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUpdateManyWithoutGroupNestedInput
     Members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    Contacts?: ContactsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateInput = {
@@ -7531,6 +7642,7 @@ export namespace Prisma {
     profile?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUncheckedUpdateManyWithoutGroupNestedInput
     Members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    Contacts?: ContactsUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupCreateManyInput = {
@@ -7594,35 +7706,40 @@ export namespace Prisma {
   export type ContactsCreateInput = {
     id?: string
     user: UsersCreateNestedOneWithoutOwnerInput
-    contact: UsersCreateNestedOneWithoutContactsInput
+    contact?: UsersCreateNestedOneWithoutContactsInput
+    group?: GroupCreateNestedOneWithoutContactsInput
     Messages?: MessagesCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUncheckedCreateInput = {
     id?: string
     userId: string
-    contactId: string
+    contactId?: string | null
+    groupId?: string | null
     Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
-    contact?: UsersUpdateOneRequiredWithoutContactsNestedInput
+    contact?: UsersUpdateOneWithoutContactsNestedInput
+    group?: GroupUpdateOneWithoutContactsNestedInput
     Messages?: MessagesUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    contactId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsCreateManyInput = {
     id?: string
     userId: string
-    contactId: string
+    contactId?: string | null
+    groupId?: string | null
   }
 
   export type ContactsUpdateManyMutationInput = {
@@ -7632,7 +7749,8 @@ export namespace Prisma {
   export type ContactsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    contactId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7886,18 +8004,21 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     contactId?: SortOrder
+    groupId?: SortOrder
   }
 
   export type ContactsMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     contactId?: SortOrder
+    groupId?: SortOrder
   }
 
   export type ContactsMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     contactId?: SortOrder
+    groupId?: SortOrder
   }
 
   export type MessagesCreateNestedManyWithoutSenderInput = {
@@ -8196,6 +8317,13 @@ export namespace Prisma {
     connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
   }
 
+  export type ContactsCreateNestedManyWithoutGroupInput = {
+    create?: XOR<ContactsCreateWithoutGroupInput, ContactsUncheckedCreateWithoutGroupInput> | ContactsCreateWithoutGroupInput[] | ContactsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: ContactsCreateOrConnectWithoutGroupInput | ContactsCreateOrConnectWithoutGroupInput[]
+    createMany?: ContactsCreateManyGroupInputEnvelope
+    connect?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+  }
+
   export type MessagesUncheckedCreateNestedManyWithoutGroupInput = {
     create?: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput> | MessagesCreateWithoutGroupInput[] | MessagesUncheckedCreateWithoutGroupInput[]
     connectOrCreate?: MessagesCreateOrConnectWithoutGroupInput | MessagesCreateOrConnectWithoutGroupInput[]
@@ -8208,6 +8336,13 @@ export namespace Prisma {
     connectOrCreate?: GroupMembersCreateOrConnectWithoutGroupInput | GroupMembersCreateOrConnectWithoutGroupInput[]
     createMany?: GroupMembersCreateManyGroupInputEnvelope
     connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type ContactsUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<ContactsCreateWithoutGroupInput, ContactsUncheckedCreateWithoutGroupInput> | ContactsCreateWithoutGroupInput[] | ContactsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: ContactsCreateOrConnectWithoutGroupInput | ContactsCreateOrConnectWithoutGroupInput[]
+    createMany?: ContactsCreateManyGroupInputEnvelope
+    connect?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
   }
 
   export type MessagesUpdateManyWithoutGroupNestedInput = {
@@ -8238,6 +8373,20 @@ export namespace Prisma {
     deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
   }
 
+  export type ContactsUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<ContactsCreateWithoutGroupInput, ContactsUncheckedCreateWithoutGroupInput> | ContactsCreateWithoutGroupInput[] | ContactsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: ContactsCreateOrConnectWithoutGroupInput | ContactsCreateOrConnectWithoutGroupInput[]
+    upsert?: ContactsUpsertWithWhereUniqueWithoutGroupInput | ContactsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: ContactsCreateManyGroupInputEnvelope
+    set?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    disconnect?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    delete?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    connect?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    update?: ContactsUpdateWithWhereUniqueWithoutGroupInput | ContactsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: ContactsUpdateManyWithWhereWithoutGroupInput | ContactsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: ContactsScalarWhereInput | ContactsScalarWhereInput[]
+  }
+
   export type MessagesUncheckedUpdateManyWithoutGroupNestedInput = {
     create?: XOR<MessagesCreateWithoutGroupInput, MessagesUncheckedCreateWithoutGroupInput> | MessagesCreateWithoutGroupInput[] | MessagesUncheckedCreateWithoutGroupInput[]
     connectOrCreate?: MessagesCreateOrConnectWithoutGroupInput | MessagesCreateOrConnectWithoutGroupInput[]
@@ -8264,6 +8413,20 @@ export namespace Prisma {
     update?: GroupMembersUpdateWithWhereUniqueWithoutGroupInput | GroupMembersUpdateWithWhereUniqueWithoutGroupInput[]
     updateMany?: GroupMembersUpdateManyWithWhereWithoutGroupInput | GroupMembersUpdateManyWithWhereWithoutGroupInput[]
     deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+  }
+
+  export type ContactsUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<ContactsCreateWithoutGroupInput, ContactsUncheckedCreateWithoutGroupInput> | ContactsCreateWithoutGroupInput[] | ContactsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: ContactsCreateOrConnectWithoutGroupInput | ContactsCreateOrConnectWithoutGroupInput[]
+    upsert?: ContactsUpsertWithWhereUniqueWithoutGroupInput | ContactsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: ContactsCreateManyGroupInputEnvelope
+    set?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    disconnect?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    delete?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    connect?: ContactsWhereUniqueInput | ContactsWhereUniqueInput[]
+    update?: ContactsUpdateWithWhereUniqueWithoutGroupInput | ContactsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: ContactsUpdateManyWithWhereWithoutGroupInput | ContactsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: ContactsScalarWhereInput | ContactsScalarWhereInput[]
   }
 
   export type GroupCreateNestedOneWithoutMembersInput = {
@@ -8306,6 +8469,12 @@ export namespace Prisma {
     connect?: UsersWhereUniqueInput
   }
 
+  export type GroupCreateNestedOneWithoutContactsInput = {
+    create?: XOR<GroupCreateWithoutContactsInput, GroupUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutContactsInput
+    connect?: GroupWhereUniqueInput
+  }
+
   export type MessagesCreateNestedManyWithoutContactInput = {
     create?: XOR<MessagesCreateWithoutContactInput, MessagesUncheckedCreateWithoutContactInput> | MessagesCreateWithoutContactInput[] | MessagesUncheckedCreateWithoutContactInput[]
     connectOrCreate?: MessagesCreateOrConnectWithoutContactInput | MessagesCreateOrConnectWithoutContactInput[]
@@ -8328,12 +8497,24 @@ export namespace Prisma {
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutOwnerInput, UsersUpdateWithoutOwnerInput>, UsersUncheckedUpdateWithoutOwnerInput>
   }
 
-  export type UsersUpdateOneRequiredWithoutContactsNestedInput = {
+  export type UsersUpdateOneWithoutContactsNestedInput = {
     create?: XOR<UsersCreateWithoutContactsInput, UsersUncheckedCreateWithoutContactsInput>
     connectOrCreate?: UsersCreateOrConnectWithoutContactsInput
     upsert?: UsersUpsertWithoutContactsInput
+    disconnect?: UsersWhereInput | boolean
+    delete?: UsersWhereInput | boolean
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutContactsInput, UsersUpdateWithoutContactsInput>, UsersUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type GroupUpdateOneWithoutContactsNestedInput = {
+    create?: XOR<GroupCreateWithoutContactsInput, GroupUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutContactsInput
+    upsert?: GroupUpsertWithoutContactsInput
+    disconnect?: GroupWhereInput | boolean
+    delete?: GroupWhereInput | boolean
+    connect?: GroupWhereUniqueInput
+    update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutContactsInput, GroupUpdateWithoutContactsInput>, GroupUncheckedUpdateWithoutContactsInput>
   }
 
   export type MessagesUpdateManyWithoutContactNestedInput = {
@@ -8555,13 +8736,15 @@ export namespace Prisma {
 
   export type ContactsCreateWithoutUserInput = {
     id?: string
-    contact: UsersCreateNestedOneWithoutContactsInput
+    contact?: UsersCreateNestedOneWithoutContactsInput
+    group?: GroupCreateNestedOneWithoutContactsInput
     Messages?: MessagesCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUncheckedCreateWithoutUserInput = {
     id?: string
-    contactId: string
+    contactId?: string | null
+    groupId?: string | null
     Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
   }
 
@@ -8578,12 +8761,14 @@ export namespace Prisma {
   export type ContactsCreateWithoutContactInput = {
     id?: string
     user: UsersCreateNestedOneWithoutOwnerInput
+    group?: GroupCreateNestedOneWithoutContactsInput
     Messages?: MessagesCreateNestedManyWithoutContactInput
   }
 
   export type ContactsUncheckedCreateWithoutContactInput = {
     id?: string
     userId: string
+    groupId?: string | null
     Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
   }
 
@@ -8690,7 +8875,8 @@ export namespace Prisma {
     NOT?: ContactsScalarWhereInput | ContactsScalarWhereInput[]
     id?: StringFilter<"Contacts"> | string
     userId?: StringFilter<"Contacts"> | string
-    contactId?: StringFilter<"Contacts"> | string
+    contactId?: StringNullableFilter<"Contacts"> | string | null
+    groupId?: StringNullableFilter<"Contacts"> | string | null
   }
 
   export type ContactsUpsertWithWhereUniqueWithoutContactInput = {
@@ -8776,6 +8962,7 @@ export namespace Prisma {
     name: string
     profile?: string | null
     Members?: GroupMembersCreateNestedManyWithoutGroupInput
+    Contacts?: ContactsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateWithoutMessagesInput = {
@@ -8783,6 +8970,7 @@ export namespace Prisma {
     name: string
     profile?: string | null
     Members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    Contacts?: ContactsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutMessagesInput = {
@@ -8793,13 +8981,15 @@ export namespace Prisma {
   export type ContactsCreateWithoutMessagesInput = {
     id?: string
     user: UsersCreateNestedOneWithoutOwnerInput
-    contact: UsersCreateNestedOneWithoutContactsInput
+    contact?: UsersCreateNestedOneWithoutContactsInput
+    group?: GroupCreateNestedOneWithoutContactsInput
   }
 
   export type ContactsUncheckedCreateWithoutMessagesInput = {
     id?: string
     userId: string
-    contactId: string
+    contactId?: string | null
+    groupId?: string | null
   }
 
   export type ContactsCreateOrConnectWithoutMessagesInput = {
@@ -8897,6 +9087,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     profile?: NullableStringFieldUpdateOperationsInput | string | null
     Members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    Contacts?: ContactsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutMessagesInput = {
@@ -8904,6 +9095,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     profile?: NullableStringFieldUpdateOperationsInput | string | null
     Members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    Contacts?: ContactsUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type ContactsUpsertWithoutMessagesInput = {
@@ -8920,13 +9112,15 @@ export namespace Prisma {
   export type ContactsUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
-    contact?: UsersUpdateOneRequiredWithoutContactsNestedInput
+    contact?: UsersUpdateOneWithoutContactsNestedInput
+    group?: GroupUpdateOneWithoutContactsNestedInput
   }
 
   export type ContactsUncheckedUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    contactId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesCreateWithoutGroupInput = {
@@ -8979,6 +9173,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ContactsCreateWithoutGroupInput = {
+    id?: string
+    user: UsersCreateNestedOneWithoutOwnerInput
+    contact?: UsersCreateNestedOneWithoutContactsInput
+    Messages?: MessagesCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactsUncheckedCreateWithoutGroupInput = {
+    id?: string
+    userId: string
+    contactId?: string | null
+    Messages?: MessagesUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactsCreateOrConnectWithoutGroupInput = {
+    where: ContactsWhereUniqueInput
+    create: XOR<ContactsCreateWithoutGroupInput, ContactsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type ContactsCreateManyGroupInputEnvelope = {
+    data: ContactsCreateManyGroupInput | ContactsCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MessagesUpsertWithWhereUniqueWithoutGroupInput = {
     where: MessagesWhereUniqueInput
     update: XOR<MessagesUpdateWithoutGroupInput, MessagesUncheckedUpdateWithoutGroupInput>
@@ -9011,11 +9229,28 @@ export namespace Prisma {
     data: XOR<GroupMembersUpdateManyMutationInput, GroupMembersUncheckedUpdateManyWithoutGroupInput>
   }
 
+  export type ContactsUpsertWithWhereUniqueWithoutGroupInput = {
+    where: ContactsWhereUniqueInput
+    update: XOR<ContactsUpdateWithoutGroupInput, ContactsUncheckedUpdateWithoutGroupInput>
+    create: XOR<ContactsCreateWithoutGroupInput, ContactsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type ContactsUpdateWithWhereUniqueWithoutGroupInput = {
+    where: ContactsWhereUniqueInput
+    data: XOR<ContactsUpdateWithoutGroupInput, ContactsUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type ContactsUpdateManyWithWhereWithoutGroupInput = {
+    where: ContactsScalarWhereInput
+    data: XOR<ContactsUpdateManyMutationInput, ContactsUncheckedUpdateManyWithoutGroupInput>
+  }
+
   export type GroupCreateWithoutMembersInput = {
     id?: string
     name: string
     profile?: string | null
     Messages?: MessagesCreateNestedManyWithoutGroupInput
+    Contacts?: ContactsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUncheckedCreateWithoutMembersInput = {
@@ -9023,6 +9258,7 @@ export namespace Prisma {
     name: string
     profile?: string | null
     Messages?: MessagesUncheckedCreateNestedManyWithoutGroupInput
+    Contacts?: ContactsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutMembersInput = {
@@ -9077,6 +9313,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     profile?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUpdateManyWithoutGroupNestedInput
+    Contacts?: ContactsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutMembersInput = {
@@ -9084,6 +9321,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     profile?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUncheckedUpdateManyWithoutGroupNestedInput
+    Contacts?: ContactsUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type UsersUpsertWithoutMembersInput = {
@@ -9183,6 +9421,27 @@ export namespace Prisma {
   export type UsersCreateOrConnectWithoutContactsInput = {
     where: UsersWhereUniqueInput
     create: XOR<UsersCreateWithoutContactsInput, UsersUncheckedCreateWithoutContactsInput>
+  }
+
+  export type GroupCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    profile?: string | null
+    Messages?: MessagesCreateNestedManyWithoutGroupInput
+    Members?: GroupMembersCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupUncheckedCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    profile?: string | null
+    Messages?: MessagesUncheckedCreateNestedManyWithoutGroupInput
+    Members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupCreateOrConnectWithoutContactsInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutContactsInput, GroupUncheckedCreateWithoutContactsInput>
   }
 
   export type MessagesCreateWithoutContactInput = {
@@ -9289,6 +9548,33 @@ export namespace Prisma {
     owner?: ContactsUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type GroupUpsertWithoutContactsInput = {
+    update: XOR<GroupUpdateWithoutContactsInput, GroupUncheckedUpdateWithoutContactsInput>
+    create: XOR<GroupCreateWithoutContactsInput, GroupUncheckedCreateWithoutContactsInput>
+    where?: GroupWhereInput
+  }
+
+  export type GroupUpdateToOneWithWhereWithoutContactsInput = {
+    where?: GroupWhereInput
+    data: XOR<GroupUpdateWithoutContactsInput, GroupUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type GroupUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    profile?: NullableStringFieldUpdateOperationsInput | string | null
+    Messages?: MessagesUpdateManyWithoutGroupNestedInput
+    Members?: GroupMembersUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    profile?: NullableStringFieldUpdateOperationsInput | string | null
+    Messages?: MessagesUncheckedUpdateManyWithoutGroupNestedInput
+    Members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
   export type MessagesUpsertWithWhereUniqueWithoutContactInput = {
     where: MessagesWhereUniqueInput
     update: XOR<MessagesUpdateWithoutContactInput, MessagesUncheckedUpdateWithoutContactInput>
@@ -9332,12 +9618,14 @@ export namespace Prisma {
 
   export type ContactsCreateManyUserInput = {
     id?: string
-    contactId: string
+    contactId?: string | null
+    groupId?: string | null
   }
 
   export type ContactsCreateManyContactInput = {
     id?: string
     userId: string
+    groupId?: string | null
   }
 
   export type MessagesUpdateWithoutSenderInput = {
@@ -9417,36 +9705,42 @@ export namespace Prisma {
 
   export type ContactsUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    contact?: UsersUpdateOneRequiredWithoutContactsNestedInput
+    contact?: UsersUpdateOneWithoutContactsNestedInput
+    group?: GroupUpdateOneWithoutContactsNestedInput
     Messages?: MessagesUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    contactId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    contactId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContactsUpdateWithoutContactInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
+    group?: GroupUpdateOneWithoutContactsNestedInput
     Messages?: MessagesUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateWithoutContactInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactsUncheckedUpdateManyWithoutContactInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesCreateManyGroupInput = {
@@ -9462,6 +9756,12 @@ export namespace Prisma {
   export type GroupMembersCreateManyGroupInput = {
     id?: string
     userId: string
+  }
+
+  export type ContactsCreateManyGroupInput = {
+    id?: string
+    userId: string
+    contactId?: string | null
   }
 
   export type MessagesUpdateWithoutGroupInput = {
@@ -9507,6 +9807,26 @@ export namespace Prisma {
   export type GroupMembersUncheckedUpdateManyWithoutGroupInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactsUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UsersUpdateOneRequiredWithoutOwnerNestedInput
+    contact?: UsersUpdateOneWithoutContactsNestedInput
+    Messages?: MessagesUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactsUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    Messages?: MessagesUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactsUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessagesCreateManyContactInput = {

@@ -34,6 +34,7 @@ async function messagePost(req, res) {
         contactId: receiverId,
       },
     });
+
     if (!contactId) {
       res.status(403).json({
         message: "Add contact before sending message",
@@ -51,7 +52,7 @@ async function messagePost(req, res) {
         contactId: contactId.id,
       },
     });
-    console.log(data);
+
     res.json({ message: "Message sent", auth: req.authorization });
   } catch (err) {
     res

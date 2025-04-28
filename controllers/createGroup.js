@@ -30,6 +30,20 @@ async function createGroup(req, res) {
       },
     });
 
+    await prisma.groupMembers.create({
+      data: {
+        userId: req.user.id,
+        groupId: data.id,
+      },
+    });
+
+    await prisma.contacts.create({
+      data: {
+        userId: req.user.id,
+        groupId: data.id,
+      },
+    });
+
     res.json({
       message: "group created successfully",
       auth: req.authorization,

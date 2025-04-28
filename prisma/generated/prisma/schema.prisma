@@ -43,6 +43,7 @@ model Group {
   profile  String?
   Messages Messages[]
   Members  GroupMembers[]
+  Contacts Contacts[]
 }
 
 model GroupMembers {
@@ -57,7 +58,9 @@ model Contacts {
   id        String     @id @default(uuid())
   userId    String
   user      Users      @relation("owner", fields: [userId], references: [id], onDelete: Cascade)
-  contactId String
-  contact   Users      @relation("contact", fields: [contactId], references: [id], onDelete: Cascade)
+  contactId String?
+  contact   Users?     @relation("contact", fields: [contactId], references: [id], onDelete: Cascade)
+  groupId   String?
+  group     Group?     @relation(fields: [groupId], references: [id], onDelete: Cascade)
   Messages  Messages[]
 }

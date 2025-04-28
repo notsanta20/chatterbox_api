@@ -10,10 +10,10 @@ async function groupMessageGet(req, res) {
     return;
   }
 
-  const { groupId } = req.body;
+  const { receiverId } = req.params;
 
   try {
-    if (typeof groupId === "undefined") {
+    if (typeof receiverId === "undefined") {
       res.status(403).json({
         message: "Error in fetching messages, try again",
         auth: req.authorization,
@@ -21,18 +21,15 @@ async function groupMessageGet(req, res) {
       return;
     }
 
-    const data = await prisma.group.findFirst({
+    const data = await prisma.messages.findMany({
       where: {
-        id: groupId,
-      },
-      include: {
-        Messages: true,
+        groupId: receiverId,
       },
     });
 
     const membersData = await prisma.groupMembers.findMany({
       where: {
-        groupId: groupId,
+        groupId: receiverId,
       },
       include: {
         user: true,
@@ -54,7 +51,7 @@ async function groupMessageGet(req, res) {
       members: members,
       auth: req.authorization,
     });
-  } catch (err) {
+  } catch (error) {
     res
       .status(501)
       .json({ message: "server error", error: err, auth: req.authorization });

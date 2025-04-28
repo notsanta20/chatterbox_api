@@ -21,13 +21,19 @@ async function joinGroup(req, res) {
       return;
     }
 
-    const data = await prisma.groupMembers.create({
+    await prisma.groupMembers.create({
       data: {
         groupId: groupId,
         userId: req.user.id,
       },
     });
-    console.log(data);
+
+    await prisma.contacts.create({
+      data: {
+        userId: req.user.id,
+        groupId: groupId,
+      },
+    });
 
     res.json({
       message: "Joined group successfully",

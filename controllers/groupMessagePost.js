@@ -10,7 +10,7 @@ async function groupMessagePost(req, res) {
     return;
   }
 
-  let { message, imageURL, groupId } = req.body;
+  let { message, imageURL, receiverId } = req.body;
 
   if (typeof message === "undefined") {
     message = null;
@@ -20,27 +20,36 @@ async function groupMessagePost(req, res) {
   }
 
   try {
-    if (typeof groupId === "undefined") {
+    if (typeof receiverId === "undefined") {
       res.status(403).json({
         message: "Group does not exists, try again",
         auth: req.authorization,
       });
       return;
     }
-    const data = await prisma.messages.create({
+
+    const contactId = await prisma.contacts.findFirst({
+      where: {
+        userId: req.user.id,
+        groupId: receiverId,
+      },
+    });
+
+    await prisma.messages.create({
       data: {
         message: message,
         imageURL: imageURL,
         senderId: req.user.id,
-        groupId: groupId,
+        groupId: receiverId,
+        contactId: contactId.id,
       },
     });
-    console.log(data);
+
     res.json({ message: "Message sent", auth: req.authorization });
-  } catch (err) {
+  } catch (error) {
     res
       .status(501)
-      .json({ message: "server error", error: err, auth: req.authorization });
+      .json({ message: "server error", error: error, auth: req.authorization });
   }
 }
 

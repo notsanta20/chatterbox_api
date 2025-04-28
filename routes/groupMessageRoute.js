@@ -7,7 +7,7 @@ const createGroup = require("../controllers/createGroup");
 const joinGroup = require("../controllers/joinGroup");
 
 app.get("/groups", getGroups);
-app.get("/grp-msg", groupMessageGet);
+app.get("/grp-msg/:receiverId", groupMessageGet);
 app.post("/grp-msg", groupMessagePost);
 app.post("/create-grp", createGroup);
 app.post("/join-grp", joinGroup);
