@@ -21,6 +21,20 @@ async function addContact(req, res) {
   }
 
   try {
+    const verifyData = await prisma.contacts.findFirst({
+      where: {
+        userId: req.user.id,
+        contactId: contactId,
+      },
+    });
+    if (verifyData) {
+      res.status(403).json({
+        error: "user already exists in contact",
+        auth: req.authorization,
+      });
+      return;
+    }
+
     await prisma.contacts.create({
       data: {
         userId: req.user.id,

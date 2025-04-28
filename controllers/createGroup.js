@@ -29,7 +29,6 @@ async function createGroup(req, res) {
         profile: profile,
       },
     });
-    console.log(data);
 
     res.json({
       message: "group created successfully",
