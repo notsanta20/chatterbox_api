@@ -27,6 +27,7 @@ async function addContact(req, res) {
         contactId: contactId,
       },
     });
+
     if (verifyData) {
       res.status(403).json({
         error: "user already exists in contact",
@@ -35,11 +36,17 @@ async function addContact(req, res) {
       return;
     }
 
-    await prisma.contacts.create({
-      data: {
-        userId: req.user.id,
-        contactId: contactId,
-      },
+    await prisma.contacts.createMany({
+      data: [
+        {
+          userId: req.user.id,
+          contactId: contactId,
+        },
+        {
+          userId: contactId,
+          contactId: req.user.id,
+        },
+      ],
     });
 
     res.json({

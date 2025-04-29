@@ -21,6 +21,21 @@ async function joinGroup(req, res) {
       return;
     }
 
+    const verifyData = await prisma.contacts.findFirst({
+      where: {
+        userId: req.user.id,
+        groupId: groupId,
+      },
+    });
+
+    if (verifyData) {
+      res.status(403).json({
+        error: "Group already added",
+        auth: req.authorization,
+      });
+      return;
+    }
+
     await prisma.groupMembers.create({
       data: {
         groupId: groupId,

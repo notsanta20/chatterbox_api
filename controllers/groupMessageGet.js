@@ -25,6 +25,18 @@ async function groupMessageGet(req, res) {
       where: {
         groupId: receiverId,
       },
+      include: {
+        sender: true,
+      },
+    });
+
+    const filteredData = data.map((data) => {
+      return {
+        ...data,
+        sender: {
+          username: data.sender.username,
+        },
+      };
     });
 
     const membersData = await prisma.groupMembers.findMany({
@@ -37,19 +49,19 @@ async function groupMessageGet(req, res) {
     });
 
     const members = membersData.map((m) => {
-      const data = {
+      return {
         username: m.user.username,
         profile: m.user.profile,
         bio: m.user.bio,
       };
-      return data;
     });
 
     res.json({
       message: "Messages fetched",
-      data: data,
+      data: filteredData,
       members: members,
       auth: req.authorization,
+      userId: req.user.id,
     });
   } catch (error) {
     res

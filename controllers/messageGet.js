@@ -47,6 +47,7 @@ async function messageGet(req, res) {
       message: "Messages fetched",
       data: data,
       auth: req.authorization,
+      userId: req.user.id,
     });
   } catch (err) {
     res
