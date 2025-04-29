@@ -42,6 +42,7 @@ async function getContacts(req, res) {
       message: "Contact fetched successfully",
       auth: req.authorization,
       data: filteredData,
+      user: req.user,
     });
   } catch (error) {
     console.log(error);

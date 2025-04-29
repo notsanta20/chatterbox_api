@@ -50,6 +50,7 @@ async function login(req, res) {
     const tokenData = {
       id: userData.id,
       username: userData.username,
+      bio: userData.bio,
     };
     const secret = process.env.ACCESS_TOKEN_SECRET;
 
