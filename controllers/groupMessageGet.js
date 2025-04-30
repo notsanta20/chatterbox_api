@@ -27,7 +27,12 @@ async function groupMessageGet(req, res) {
       },
       include: {
         sender: true,
-        group: true,
+      },
+    });
+
+    const grp = await prisma.group.findFirst({
+      where: {
+        id: receiverId,
       },
     });
 
@@ -63,7 +68,7 @@ async function groupMessageGet(req, res) {
       members: members,
       auth: req.authorization,
       userId: req.user.id,
-      profileName: data[0].group.name,
+      profileName: grp.name,
     });
   } catch (error) {
     res
