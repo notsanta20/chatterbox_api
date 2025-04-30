@@ -20,7 +20,7 @@ function validateData(data) {
 async function editBio(req, res) {
   const { bio } = req.body;
 
-  const error = validateData(bio);
+  const error = validateData(req.body);
   if (error) {
     throw error;
   }

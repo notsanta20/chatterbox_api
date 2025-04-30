@@ -38,11 +38,21 @@ async function getContacts(req, res) {
       }
     });
 
+    const user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+    });
+
     res.json({
       message: "Contact fetched successfully",
       auth: req.authorization,
       data: filteredData,
-      user: req.user,
+      user: {
+        id: user.id,
+        username: user.username,
+        bio: user.bio,
+      },
     });
   } catch (error) {
     console.log(error);

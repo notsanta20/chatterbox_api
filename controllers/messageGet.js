@@ -43,11 +43,18 @@ async function messageGet(req, res) {
       },
     });
 
+    const receiver = await prisma.users.findFirst({
+      where: {
+        id: receiverId,
+      },
+    });
+
     res.json({
       message: "Messages fetched",
       data: data,
       auth: req.authorization,
       userId: req.user.id,
+      profileName: receiver.username,
     });
   } catch (err) {
     res

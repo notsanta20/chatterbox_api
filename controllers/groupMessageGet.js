@@ -27,6 +27,7 @@ async function groupMessageGet(req, res) {
       },
       include: {
         sender: true,
+        group: true,
       },
     });
 
@@ -62,11 +63,12 @@ async function groupMessageGet(req, res) {
       members: members,
       auth: req.authorization,
       userId: req.user.id,
+      profileName: data[0].group.name,
     });
   } catch (error) {
     res
       .status(501)
-      .json({ message: "server error", error: err, auth: req.authorization });
+      .json({ message: "server error", error: error, auth: req.authorization });
   }
 }
 
