@@ -25,4 +25,4 @@ dist-ssr
 *.pem
 db/uploads
 controllers/test.js
-prisma/generated
+prisma/generated/
