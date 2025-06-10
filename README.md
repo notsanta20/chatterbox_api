@@ -1,7 +1,7 @@
 <h3 align="center">ChatterBox API</h3>
 
   <p align="center">
-    ChatterBox API is the backend server for the ChatterBox app. This server is built using Nodejs and Express. This is built RESTful APIs that provides secure way to check coordinates for the game and access leaderboard. It also uses JWT Tokens for authentication and Zod for validating user inputs.
+    ChatterBox API is the backend server for the ChatterBox app. This server is built using Nodejs and Express. This is built RESTful APIs that provides secure way to send message to users. It also uses JWT Tokens for authentication and Zod for validating user inputs.
     <br />
   </p>
 </div>
@@ -11,7 +11,7 @@
 
 ### CLIENT
 
-Where's Waldo app has can accessed from here <a href="https://github.com/notsanta20/chatterbox" target="_blank">Where's Waldo</a>
+Where's Waldo app has can accessed from here <a href="https://github.com/notsanta20/chatterbox" target="_blank">ChatterBox</a>
 
 ### Built With
 
