@@ -11,7 +11,7 @@
 
 ### CLIENT
 
-Where's Waldo app has can accessed from here <a href="https://github.com/notsanta20/chatterbox" target="_blank">ChatterBox</a>
+Client app has can accessed from here <a href="https://github.com/notsanta20/chatterbox" target="_blank">ChatterBox</a>
 
 ### Built With
 
